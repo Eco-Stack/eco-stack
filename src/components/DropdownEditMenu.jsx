@@ -1,12 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Transition from '../utils/Transition';
+import React, { useState, useRef, useEffect } from "react";
+import Transition from "../utils/Transition";
 
-function DropdownEditMenu({
-  children,
-  align,
-  ...rest
-}) {
-
+function DropdownEditMenu({ children, align, ...rest }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -16,11 +11,16 @@ function DropdownEditMenu({
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
+      if (
+        !dropdownOpen ||
+        dropdown.current.contains(target) ||
+        trigger.current.contains(target)
+      )
+        return;
       setDropdownOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   // close if the esc key is pressed
@@ -29,8 +29,8 @@ function DropdownEditMenu({
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   return (
@@ -39,15 +39,15 @@ function DropdownEditMenu({
         ref={trigger}
         className={`rounded-full ${
           dropdownOpen
-            ? 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'
-            : 'text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400'
+            ? "bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400"
+            : "text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400"
         }`}
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
         <span className="sr-only">Menu</span>
-        <svg className="w-8 h-8 fill-current" viewBox="0 0 32 32">
+        <svg className="h-8 w-8 fill-current" viewBox="0 0 32 32">
           <circle cx="16" cy="16" r="2" />
           <circle cx="10" cy="16" r="2" />
           <circle cx="22" cy="16" r="2" />
@@ -56,8 +56,8 @@ function DropdownEditMenu({
       <Transition
         show={dropdownOpen}
         tag="div"
-        className={`origin-top-right z-10 absolute top-full min-w-36 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${
-          align === 'right' ? 'right-0' : 'left-0'
+        className={`min-w-36 absolute top-full z-10 mt-1 origin-top-right overflow-hidden rounded border border-slate-200 bg-white py-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-800 ${
+          align === "right" ? "right-0" : "left-0"
         }`}
         enter="transition ease-out duration-200 transform"
         enterStart="opacity-0 -translate-y-2"
@@ -66,7 +66,11 @@ function DropdownEditMenu({
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <ul ref={dropdown} onFocus={() => setDropdownOpen(true)} onBlur={() => setDropdownOpen(false)}>
+        <ul
+          ref={dropdown}
+          onFocus={() => setDropdownOpen(true)}
+          onBlur={() => setDropdownOpen(false)}
+        >
           {children}
         </ul>
       </Transition>

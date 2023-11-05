@@ -13,25 +13,25 @@ import ProjectOverview from "./pages/ProjectOverview";
 import CloudOverview from "./pages/CloudOverview";
 
 function App() {
-	const location = useLocation();
+  const location = useLocation();
 
-	useEffect(() => {
-		document.querySelector("html").style.scrollBehavior = "auto";
-		window.scroll({ top: 0 });
-		document.querySelector("html").style.scrollBehavior = "";
-	}, [location.pathname]); // triggered on route change
+  useEffect(() => {
+    document.querySelector("html").style.scrollBehavior = "auto";
+    window.scroll({ top: 0 });
+    document.querySelector("html").style.scrollBehavior = "";
+  }, [location.pathname]); // triggered on route change
 
-	return (
-		<>
-			<Routes>
-				<Route exact path="/" element={<ProjectOverview />} />
-				<Route exact path="/cloud" element={<CloudOverview />} />
-				<Route exact path="/auth/signin" element={<Signin />} />
-				<Route exact path="/auth/signup" element={<Signup />} />
-				<Route exact path="/test" element={<Dashboard />} />
-			</Routes>
-		</>
-	);
+  return (
+    <>
+      <Routes>
+        <Route exact path="/" element={<ProjectOverview />} />
+        <Route exact path="/cloud" element={<CloudOverview />} />
+        <Route exact path="/auth/signin" element={<Signin />} />
+        <Route exact path="/auth/signup" element={<Signup />} />
+        <Route exact path="/test" element={<Dashboard />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
