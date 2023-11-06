@@ -37,8 +37,11 @@ export default function LineChart({
 }: LineChartProps) {
   if (labels.length !== datas[0].data.length) {
     return (
-      <div className="flex min-h-[300px] w-full items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center">
         <p className="text-center font-bold">
+          Unable to render chart '{title}'
+        </p>
+        <p className="text-center">
           Data length and label length are not equal.
         </p>
       </div>
@@ -52,6 +55,9 @@ export default function LineChart({
       mode: "index" as const,
       intersect: false,
     },
+    tooltip: {
+      crosshair: true,
+    },
     plugins: {
       title: {
         display: title ? true : false,
@@ -64,14 +70,14 @@ export default function LineChart({
         display: true,
         position: "left" as const,
       },
-      y1: {
-        type: "linear" as const,
-        display: true,
-        position: "right" as const,
-        grid: {
-          drawOnChartArea: false,
-        },
-      },
+      // y1: {
+      //   type: "linear" as const,
+      //   display: true,
+      //   position: "right" as const,
+      //   grid: {
+      //     drawOnChartArea: false,
+      //   },
+      // },
     },
   };
 
@@ -92,7 +98,7 @@ export default function LineChart({
           : i % 2 === 0
           ? "rgba(255, 99, 132, 0.5)"
           : "rgba(53, 162, 235, 0.5)",
-        yAxisID: i % 2 === 0 ? "y" : "y1",
+        yAxisID: "y",
       };
     }),
   };

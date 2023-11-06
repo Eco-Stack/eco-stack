@@ -7,16 +7,6 @@ import { faker } from "@faker-js/faker";
 export default function ProjectOverview() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const labels = [
-    ["2023.11.10", "2023.11.03"],
-    ["2023.11.11", "2023.11.04"],
-    ["2023.11.12", "2023.11.05"],
-    ["2023.11.13", "2023.11.06"],
-    ["2023.11.14", "2023.11.07"],
-    ["2023.11.15", "2023.11.08"],
-    ["2023.11.16", "2023.11.09"],
-  ];
-
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -29,7 +19,7 @@ export default function ProjectOverview() {
           <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
             <p>ProjectOverview</p>
             <div className="grid w-full grid-cols-2 gap-5">
-              <div className="col-span-1">
+              <div className="col-span-1 flex">
                 <LineChart
                   title={"CPU Usage (%)"}
                   labels={[
@@ -85,11 +75,9 @@ export default function ProjectOverview() {
                   ]}
                 />
               </div>
-            </div>
-            <div className="grid w-full grid-cols-2 gap-5">
               <div className="col-span-1">
                 <LineChart
-                  title={"DISK I/O Usage (Bytes)"}
+                  title={"DISK R/W Usage (Bytes)"}
                   labels={[
                     ["2023-11-10", "2023-11-03"],
                     ["2023-11-11", "2023-11-04"],
@@ -101,34 +89,38 @@ export default function ProjectOverview() {
                   ]}
                   datas={[
                     {
-                      label: "Current Input",
+                      label: "Current Read",
                       data: new Array(7)
                         .fill(0)
-                        .map(() => faker.number.int({ min: 0, max: 100 })),
+                        .map(() => faker.number.int({ min: 0, max: 50000 })),
                       color: "rgb(255, 99, 132)",
+                      hidden: true,
                     },
                     {
-                      label: "Current Output",
+                      label: "Current Write",
                       data: new Array(7)
                         .fill(0)
-                        .map(() => faker.number.int({ min: 0, max: 100 })),
+                        .map(() =>
+                          faker.number.int({ min: 50000, max: 300000 }),
+                        ),
                       color: "rgb(182, 70, 94)",
-                      hidden: true,
                     },
                     {
-                      label: " Previous Input",
+                      label: "Previous Read",
                       data: new Array(7)
                         .fill(0)
-                        .map(() => faker.number.int({ min: 0, max: 100 })),
+                        .map(() => faker.number.int({ min: 0, max: 50000 })),
                       color: "rgb(53, 162, 235)",
+                      hidden: true,
                     },
                     {
-                      label: " Previous Output",
+                      label: "Previous Write",
                       data: new Array(7)
                         .fill(0)
-                        .map(() => faker.number.int({ min: 0, max: 100 })),
+                        .map(() =>
+                          faker.number.int({ min: 50000, max: 300000 }),
+                        ),
                       color: "rgb(41, 117, 168)",
-                      hidden: true,
                     },
                   ]}
                 />
