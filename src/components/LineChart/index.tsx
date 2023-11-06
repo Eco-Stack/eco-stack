@@ -25,7 +25,7 @@ ChartJS.register(
 interface LineChartProps {
   title: string;
   labels: (string | [string, string])[];
-  datas: { label: string; data: number[]; color?: string }[];
+  datas: { label: string; data: number[]; color?: string; hidden?: boolean }[];
   options?: object;
 }
 
@@ -52,7 +52,6 @@ export default function LineChart({
       mode: "index" as const,
       intersect: false,
     },
-    // stacked: false,
     plugins: {
       title: {
         display: title ? true : false,
@@ -82,6 +81,7 @@ export default function LineChart({
       return {
         label: data.label,
         data: data.data,
+        hidden: data.hidden,
         borderColor: data.color
           ? data.color
           : i % 2 === 0

@@ -113,6 +113,7 @@ export default function ProjectOverview() {
                         .fill(0)
                         .map(() => faker.number.int({ min: 0, max: 100 })),
                       color: "rgb(182, 70, 94)",
+                      hidden: true,
                     },
                     {
                       label: " Previous Input",
@@ -127,6 +128,7 @@ export default function ProjectOverview() {
                         .fill(0)
                         .map(() => faker.number.int({ min: 0, max: 100 })),
                       color: "rgb(41, 117, 168)",
+                      hidden: true,
                     },
                   ]}
                 />
