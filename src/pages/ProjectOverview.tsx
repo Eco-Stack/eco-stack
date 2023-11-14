@@ -3,6 +3,7 @@ import Sidebar from "../partials/Sidebar";
 import Header from "../partials/Header";
 import LineChart from "../components/LineChart";
 import { faker } from "@faker-js/faker";
+import FragmentedRow from "../components/FragmentedRow";
 
 export default function ProjectOverview() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,6 +21,51 @@ export default function ProjectOverview() {
             <h1 className="text-2xl font-bold text-gray-300">
               Project Overview
             </h1>
+            <FragmentedRow
+              className="mt-3"
+              datas={[
+                {
+                  label: "Project Name",
+                  span: "1",
+                },
+                {
+                  label: "Project Instances",
+                  span: "1",
+                },
+                {
+                  label: "Project Created",
+                  span: "1",
+                },
+                {
+                  label: "Project Owner",
+                  span: "1",
+                },
+              ]}
+            />
+            <FragmentedRow
+              className="mb-3 text-xl font-semibold text-gray-200"
+              datas={[
+                {
+                  label: "PROJECT 0001",
+                  span: "1",
+                },
+                {
+                  label: "8",
+                  span: "1",
+                },
+                {
+                  label: "2023.11.14",
+                  span: "1",
+                },
+                {
+                  label: "Hayden Hong",
+                  span: "1",
+                },
+              ]}
+            />
+
+            <div className="my-1 h-[1px] w-full bg-gray-300"></div>
+
             <div className="grid w-full grid-cols-2 gap-5">
               <div className="col-span-1 flex">
                 <LineChart
