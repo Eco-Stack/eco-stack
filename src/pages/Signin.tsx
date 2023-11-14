@@ -1,24 +1,27 @@
 import React, { useState } from "react";
-import Sidebar from "../partials/Sidebar";
-import Header from "../partials/Header";
+import Svg from "../components/Svg";
 
 export default function Signin() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      {/* Content area */}
-      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main>
-          <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
-            signin
-          </div>
-        </main>
-      </div>
+    <div className="flex h-screen flex-col items-center overflow-hidden">
+      <h1 className="text-center">
+        Eco Stack <Svg icon="icon_eco"></Svg>
+      </h1>
+      <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
+        <label htmlFor="email">Email</label>
+        <input className="bg-white/50 text-white" id="email" name="email" />
+
+        <label htmlFor="password">Password</label>
+        <input
+          className="bg-white/50 text-white"
+          id="password"
+          name="password"
+        />
+
+        <input type="submit" value="Login"></input>
+      </form>
     </div>
   );
 }

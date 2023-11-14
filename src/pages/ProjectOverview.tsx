@@ -17,7 +17,9 @@ export default function ProjectOverview() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <main>
           <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
-            <p>ProjectOverview</p>
+            <h1 className="text-2xl font-bold text-gray-300">
+              Project Overview
+            </h1>
             <div className="grid w-full grid-cols-2 gap-5">
               <div className="col-span-1 flex">
                 <LineChart
@@ -133,7 +135,7 @@ export default function ProjectOverview() {
                     ["2023-11-11", "2023-11-04"],
                     ["2023-11-12", "2023-11-05"],
                     ["2023-11-13", "2023-11-06"],
-                    // ["2023-11-14", "2023-11-07"],
+                    ["2023-11-14", "2023-11-07"],
                     ["2023-11-15", "2023-11-08"],
                     ["2023-11-16", "2023-11-09"],
                   ]}

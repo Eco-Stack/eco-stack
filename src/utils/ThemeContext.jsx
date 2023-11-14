@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext({
-  currentTheme: "light",
+  currentTheme: "dark",
   changeCurrentTheme: () => {},
 });
 

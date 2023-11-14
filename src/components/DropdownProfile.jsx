@@ -45,16 +45,9 @@ function DropdownProfile({ align }) {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
-        <img
-          className="h-8 w-8 rounded-full"
-          src={UserAvatar}
-          width="32"
-          height="32"
-          alt="User"
-        />
         <div className="flex items-center truncate">
           <span className="ml-2 truncate text-sm font-medium group-hover:text-slate-800 dark:text-slate-300 dark:group-hover:text-slate-200">
-            Acme Inc.
+            User
           </span>
           <svg
             className="ml-1 h-3 w-3 shrink-0 fill-current text-slate-400"
@@ -84,7 +77,7 @@ function DropdownProfile({ align }) {
         >
           <div className="mb-1 border-b border-slate-200 px-3 pb-2 pt-0.5 dark:border-slate-700">
             <div className="font-medium text-slate-800 dark:text-slate-100">
-              Acme Inc.
+              User
             </div>
             <div className="text-xs italic text-slate-500 dark:text-slate-400">
               Administrator
