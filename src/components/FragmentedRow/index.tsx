@@ -4,6 +4,7 @@ import React from "react";
 interface IFragmentedData {
   label: string;
   value?: string;
+  align?: "left" | "center" | "right";
   span: string;
 }
 
