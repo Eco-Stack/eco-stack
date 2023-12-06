@@ -13,6 +13,10 @@ export default function ProjectOverview() {
     label: "WEEK",
     value: "7",
   });
+  const [projectViewOption, setProjectViewOption] = useState({
+    label: "PROJECT",
+    value: "project",
+  });
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -399,14 +403,25 @@ export default function ProjectOverview() {
 
             <div className="my-3 h-[1px] w-full bg-gray-300"></div>
 
-            <div className="mb-2 flex w-full  justify-between text-black">
-              <button className="h-auto w-44 rounded bg-gray-300 px-4 py-1">
-                Project View ▼
-              </button>
-              <button className="h-auto w-44 rounded bg-gray-300 px-4 py-1">
-                WEEK ▼
-              </button>
-              {/* Select Button */}
+            <div className="flex w-full justify-between text-black">
+              <SelectButton
+                options={[
+                  {
+                    label: "Instance1",
+                    value: "instance1",
+                  },
+                  {
+                    label: "Instance2",
+                    value: "instance2",
+                  },
+                  {
+                    label: "Instance3",
+                    value: "instance3",
+                  },
+                ]}
+                currentOption={projectViewOption}
+                setOption={(option) => setProjectViewOption(option)}
+              />
               <SelectButton
                 options={[
                   {
