@@ -21,9 +21,9 @@ export default function FragmentedRow({ datas = [], className }: IFragmentedRowP
       }}
       className={clsx(['grid w-full', className])}
     >
-      {datas.map(data => (
+      {datas.map((data, i) => (
         <div
-          key={data.label}
+          key={`${data.label}-${i}`}
           className={clsx([
             'flex items-center justify-start',
             data.align === 'left' && 'justify-start',

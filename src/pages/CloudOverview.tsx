@@ -3,6 +3,8 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import RoundedBox from 'components/RoundedBox';
 import FragmentedRow from 'components/FragmentedRow';
+import { motion } from 'framer-motion';
+import AnimateFadeIn from 'components/AnimateFadeIn';
 
 export default function ProjectOverview() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,9 +28,12 @@ export default function ProjectOverview() {
         <main>
           <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
             <h1 className="text-2xl font-bold text-gray-300">Admin Overview</h1>
-            <h1 className="text-xl font-bold text-gray-300">클라우드 개요</h1>
+            <div className="my-2 w-full"></div>
+
+            {/* 클라우드 개요 */}
+            <h1 className="text-xl font-bold text-gray-300">Cloud Informations</h1>
             <div className="my-3"></div>
-            <div className="flex flex-col lg:flex-row gap-3">
+            <div className="flex flex-col 2xl:flex-row gap-3">
               {/* TOP 10 인스턴스 갯수 */}
               <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 인스턴스 갯수</h3>
@@ -41,13 +46,15 @@ export default function ProjectOverview() {
                 />
                 <div className="flex flex-col">
                   {new Array(10).fill(0).map((_, i) => (
-                    <FragmentedRow
-                      className=" leading-5"
-                      datas={[
-                        { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
-                        { label: `${30 - i}`, span: '1', align: 'right' },
-                      ]}
-                    />
+                    <AnimateFadeIn delay={i}>
+                      <FragmentedRow
+                        className=" leading-5"
+                        datas={[
+                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
+                          { label: `${30 - i}`, span: '1', align: 'right' },
+                        ]}
+                      />
+                    </AnimateFadeIn>
                   ))}
                 </div>
               </RoundedBox>
@@ -66,13 +73,15 @@ export default function ProjectOverview() {
                 />
                 <div className="flex flex-col">
                   {new Array(10).fill(0).map((_, i) => (
-                    <FragmentedRow
-                      className=" leading-5"
-                      datas={[
-                        { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
-                        { label: `${30 - i}`, span: '1', align: 'right' },
-                      ]}
-                    />
+                    <AnimateFadeIn delay={i} initialDelay={0.05 * 3}>
+                      <FragmentedRow
+                        className=" leading-5"
+                        datas={[
+                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
+                          { label: `${30 - i}`, span: '1', align: 'right' },
+                        ]}
+                      />
+                    </AnimateFadeIn>
                   ))}
                 </div>
               </RoundedBox>
@@ -91,13 +100,15 @@ export default function ProjectOverview() {
                 />
                 <div className="flex flex-col">
                   {new Array(10).fill(0).map((_, i) => (
-                    <FragmentedRow
-                      className=" leading-5"
-                      datas={[
-                        { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
-                        { label: `${30 - i}`, span: '1', align: 'right' },
-                      ]}
-                    />
+                    <AnimateFadeIn delay={i} initialDelay={0.05 * 6}>
+                      <FragmentedRow
+                        className=" leading-5"
+                        datas={[
+                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
+                          { label: `${30 - i}`, span: '1', align: 'right' },
+                        ]}
+                      />
+                    </AnimateFadeIn>
                   ))}
                 </div>
               </RoundedBox>
@@ -116,20 +127,25 @@ export default function ProjectOverview() {
                 />
                 <div className="flex flex-col">
                   {new Array(10).fill(0).map((_, i) => (
-                    <FragmentedRow
-                      className=" leading-5"
-                      datas={[
-                        { label: `${i + 1}. 프로젝트${i + 1}`, span: '3' },
-                        { label: `${30 - i}`, span: '2', align: 'right' },
-                        { label: `${30 - i}`, span: '2', align: 'right' },
-                        { label: `${30 - i}`, span: '2', align: 'right' },
-                      ]}
-                    />
+                    <AnimateFadeIn delay={i} initialDelay={0.05 * 9}>
+                      <FragmentedRow
+                        className=" leading-5"
+                        datas={[
+                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '3' },
+                          { label: `${30 - i}`, span: '2', align: 'right' },
+                          { label: `${30 - i}`, span: '2', align: 'right' },
+                          { label: `${30 - i}`, span: '2', align: 'right' },
+                        ]}
+                      />
+                    </AnimateFadeIn>
                   ))}
                 </div>
               </RoundedBox>
             </div>
             <div className="my-3 h-[1px] w-full bg-gray-300"></div>
+
+            {/* 하이퍼바이저 개요 */}
+            <h1 className="text-xl font-bold text-gray-300">Hypervisor Informations</h1>
           </div>
         </main>
       </div>
