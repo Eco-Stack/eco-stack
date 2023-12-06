@@ -1,11 +1,10 @@
 import clsx from 'clsx';
-import React from 'react';
 
 interface IFragmentedData {
   label: string;
   value?: string;
   align?: 'left' | 'center' | 'right';
-  span: string;
+  span?: string;
 }
 
 interface IFragmentedRowProps {
@@ -14,7 +13,7 @@ interface IFragmentedRowProps {
 }
 
 export default function FragmentedRow({ datas = [], className }: IFragmentedRowProps) {
-  const totalSpan = datas.reduce((a, c) => a + Number(c.span), 0);
+  const totalSpan = datas.reduce((a, c) => a + Number(c.span ?? 0), 0);
   return (
     <div
       style={{
@@ -24,8 +23,15 @@ export default function FragmentedRow({ datas = [], className }: IFragmentedRowP
     >
       {datas.map(data => (
         <div
+          key={data.label}
+          className={clsx([
+            'flex items-center justify-start',
+            data.align === 'left' && 'justify-start',
+            data.align === 'center' && 'justify-center',
+            data.align === 'right' && 'justify-end',
+          ])}
           style={{
-            gridColumn: `span ${data.span} / span ${data.span}`,
+            gridColumn: `span ${data.span} / span ${data.span ?? 0}`,
           }}
         >
           {data.label}
