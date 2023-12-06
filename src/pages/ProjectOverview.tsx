@@ -5,9 +5,14 @@ import LineChart from "../components/LineChart";
 import { faker } from "@faker-js/faker";
 import FragmentedRow from "../components/FragmentedRow";
 import RoundedBox from "../components/RoundedBox";
+import SelectButton from "../components/SelectButton";
 
 export default function ProjectOverview() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [dateViewOption, setDateViewOption] = useState({
+    label: "WEEK",
+    value: "7",
+  });
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -395,12 +400,31 @@ export default function ProjectOverview() {
             <div className="my-3 h-[1px] w-full bg-gray-300"></div>
 
             <div className="mb-2 flex w-full  justify-between text-black">
-              <button className="h-auto w-44 rounded bg-gray-300 px-4 py-2">
+              <button className="h-auto w-44 rounded bg-gray-300 px-4 py-1">
                 Project View ▼
               </button>
-              <button className="h-auto w-44 rounded bg-gray-300 px-4 py-2">
+              <button className="h-auto w-44 rounded bg-gray-300 px-4 py-1">
                 WEEK ▼
               </button>
+              {/* Select Button */}
+              <SelectButton
+                options={[
+                  {
+                    label: "DAY",
+                    value: "1",
+                  },
+                  {
+                    label: "WEEK",
+                    value: "7",
+                  },
+                  {
+                    label: "MONTH",
+                    value: "30",
+                  },
+                ]}
+                currentOption={dateViewOption}
+                setOption={(option) => setDateViewOption(option)}
+              />
             </div>
 
             <div className="grid w-full grid-cols-2 gap-5">
