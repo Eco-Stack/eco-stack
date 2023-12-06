@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Transition from "../utils/Transition";
+import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Transition from '../utils/Transition';
 
 function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
   const modalContent = useRef(null);
@@ -12,8 +12,8 @@ function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
       if (!modalOpen || modalContent.current.contains(target)) return;
       setModalOpen(false);
     };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
   });
 
   // close if the esc key is pressed
@@ -22,8 +22,8 @@ function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
       if (!modalOpen || keyCode !== 27) return;
       setModalOpen(false);
     };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
   });
 
   useEffect(() => {
@@ -75,11 +75,7 @@ function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
                 placeholder="Search Anything…"
                 ref={searchInput}
               />
-              <button
-                className="group absolute inset-0 right-auto"
-                type="submit"
-                aria-label="Search"
-              >
+              <button className="group absolute inset-0 right-auto" type="submit" aria-label="Search">
                 <svg
                   className="ml-4 mr-2 h-4 w-4 shrink-0 fill-current text-slate-400 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400"
                   viewBox="0 0 16 16"
@@ -209,7 +205,7 @@ function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
                       <path d="M14 0H2c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h8l5-5V1c0-.6-.4-1-1-1zM3 2h10v8H9v4H3V2z" />
                     </svg>
                     <span>
-                      <span className="font-medium">Messages</span> -{" "}
+                      <span className="font-medium">Messages</span> -{' '}
                       <span className="text-slate-600 group-hover:text-white dark:text-slate-400">
                         Conversation / … / Mike Mills
                       </span>
@@ -229,7 +225,7 @@ function ModalSearch({ id, searchId, modalOpen, setModalOpen }) {
                       <path d="M14 0H2c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h8l5-5V1c0-.6-.4-1-1-1zM3 2h10v8H9v4H3V2z" />
                     </svg>
                     <span>
-                      <span className="font-medium">Messages</span> -{" "}
+                      <span className="font-medium">Messages</span> -{' '}
                       <span className="text-slate-600 group-hover:text-white dark:text-slate-400">
                         Conversation / … / Eva Patrick
                       </span>

@@ -1,51 +1,28 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useThemeProvider } from "../utils/ThemeContext";
+import React, { useRef, useEffect, useState } from 'react';
+import { useThemeProvider } from '../utils/ThemeContext';
 
-import { chartColors } from "./ChartjsConfig";
-import {
-  Chart,
-  LineController,
-  LineElement,
-  Filler,
-  PointElement,
-  LinearScale,
-  TimeScale,
-  Tooltip,
-} from "chart.js";
-import "chartjs-adapter-moment";
+import { chartColors } from './ChartjsConfig';
+import { Chart, LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip } from 'chart.js';
+import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig, formatValue } from "../utils/Utils";
+import { tailwindConfig, formatValue } from '../utils/Utils';
 
-Chart.register(
-  LineController,
-  LineElement,
-  Filler,
-  PointElement,
-  LinearScale,
-  TimeScale,
-  Tooltip,
-);
+Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 
 function LineChart02({ data, width, height }) {
   const [chart, setChart] = useState(null);
   const canvas = useRef(null);
   const legend = useRef(null);
   const { currentTheme } = useThemeProvider();
-  const darkMode = currentTheme === "dark";
-  const {
-    textColor,
-    gridColor,
-    tooltipBodyColor,
-    tooltipBgColor,
-    tooltipBorderColor,
-  } = chartColors;
+  const darkMode = currentTheme === 'dark';
+  const { textColor, gridColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors;
 
   useEffect(() => {
     const ctx = canvas.current;
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
-      type: "line",
+      type: 'line',
       data: data,
       options: {
         layout: {
@@ -59,7 +36,7 @@ function LineChart02({ data, width, height }) {
             beginAtZero: true,
             ticks: {
               maxTicksLimit: 5,
-              callback: (value) => formatValue(value),
+              callback: value => formatValue(value),
               color: darkMode ? textColor.dark : textColor.light,
             },
             grid: {
@@ -67,12 +44,12 @@ function LineChart02({ data, width, height }) {
             },
           },
           x: {
-            type: "time",
+            type: 'time',
             time: {
-              parser: "MM-DD-YYYY",
-              unit: "month",
+              parser: 'MM-DD-YYYY',
+              unit: 'month',
               displayFormats: {
-                month: "MMM YY",
+                month: 'MMM YY',
               },
             },
             border: {
@@ -95,29 +72,23 @@ function LineChart02({ data, width, height }) {
           tooltip: {
             callbacks: {
               title: () => false, // Disable tooltip title
-              label: (context) => formatValue(context.parsed.y),
+              label: context => formatValue(context.parsed.y),
             },
-            bodyColor: darkMode
-              ? tooltipBodyColor.dark
-              : tooltipBodyColor.light,
-            backgroundColor: darkMode
-              ? tooltipBgColor.dark
-              : tooltipBgColor.light,
-            borderColor: darkMode
-              ? tooltipBorderColor.dark
-              : tooltipBorderColor.light,
+            bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
+            backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
+            borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,
           },
         },
         interaction: {
           intersect: false,
-          mode: "nearest",
+          mode: 'nearest',
         },
         maintainAspectRatio: false,
         resizeDelay: 200,
       },
       plugins: [
         {
-          id: "htmlLegend",
+          id: 'htmlLegend',
           afterUpdate(c, args, options) {
             const ul = legend.current;
             if (!ul) return;
@@ -127,38 +98,33 @@ function LineChart02({ data, width, height }) {
             }
             // Reuse the built-in legendItems generator
             const items = c.options.plugins.legend.labels.generateLabels(c);
-            items.slice(0, 2).forEach((item) => {
-              const li = document.createElement("li");
+            items.slice(0, 2).forEach(item => {
+              const li = document.createElement('li');
               li.style.marginLeft = tailwindConfig().theme.margin[3];
               // Button element
-              const button = document.createElement("button");
-              button.style.display = "inline-flex";
-              button.style.alignItems = "center";
-              button.style.opacity = item.hidden ? ".3" : "";
+              const button = document.createElement('button');
+              button.style.display = 'inline-flex';
+              button.style.alignItems = 'center';
+              button.style.opacity = item.hidden ? '.3' : '';
               button.onclick = () => {
-                c.setDatasetVisibility(
-                  item.datasetIndex,
-                  !c.isDatasetVisible(item.datasetIndex),
-                );
+                c.setDatasetVisibility(item.datasetIndex, !c.isDatasetVisible(item.datasetIndex));
                 c.update();
               };
               // Color box
-              const box = document.createElement("span");
-              box.style.display = "block";
+              const box = document.createElement('span');
+              box.style.display = 'block';
               box.style.width = tailwindConfig().theme.width[3];
               box.style.height = tailwindConfig().theme.height[3];
               box.style.borderRadius = tailwindConfig().theme.borderRadius.full;
               box.style.marginRight = tailwindConfig().theme.margin[2];
-              box.style.borderWidth = "3px";
-              box.style.borderColor =
-                c.data.datasets[item.datasetIndex].borderColor;
-              box.style.pointerEvents = "none";
+              box.style.borderWidth = '3px';
+              box.style.borderColor = c.data.datasets[item.datasetIndex].borderColor;
+              box.style.pointerEvents = 'none';
               // Label
-              const label = document.createElement("span");
-              label.classList.add("text-slate-500", "dark:text-slate-400");
+              const label = document.createElement('span');
+              label.classList.add('text-slate-500', 'dark:text-slate-400');
               label.style.fontSize = tailwindConfig().theme.fontSize.sm[0];
-              label.style.lineHeight =
-                tailwindConfig().theme.fontSize.sm[1].lineHeight;
+              label.style.lineHeight = tailwindConfig().theme.fontSize.sm[1].lineHeight;
               const labelText = document.createTextNode(item.text);
               label.appendChild(labelText);
               li.appendChild(button);
@@ -193,7 +159,7 @@ function LineChart02({ data, width, height }) {
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.light;
       chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light;
     }
-    chart.update("none");
+    chart.update('none');
   }, [currentTheme]);
 
   return (
@@ -201,12 +167,8 @@ function LineChart02({ data, width, height }) {
       <div className="px-5 py-3">
         <div className="flex flex-wrap items-end justify-between">
           <div className="flex items-start">
-            <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100">
-              $1,482
-            </div>
-            <div className="rounded-full bg-amber-500 px-1.5 text-sm font-semibold text-white">
-              -22%
-            </div>
+            <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100">$1,482</div>
+            <div className="rounded-full bg-amber-500 px-1.5 text-sm font-semibold text-white">-22%</div>
           </div>
           <div className="mb-1 ml-2 grow">
             <ul ref={legend} className="flex flex-wrap justify-end"></ul>

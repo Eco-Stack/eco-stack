@@ -1,4 +1,4 @@
-@import "flatpickr/dist/flatpickr.min.css";
+@import 'flatpickr/dist/flatpickr.min.css';
 
 /* Customise flatpickr */
 * {
@@ -21,9 +21,7 @@
 .flatpickr-calendar {
   border: inherit;
   @apply left-1/2 rounded border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800;
-  margin-left: calc(
-    calc(var(--daysWidth) + calc(var(--calendarPadding) * 2)) * 0.5 * -1
-  );
+  margin-left: calc(calc(var(--daysWidth) + calc(var(--calendarPadding) * 2)) * 0.5 * -1);
   padding: var(--calendarPadding);
   width: calc(var(--daysWidth) + calc(var(--calendarPadding) * 2));
 }

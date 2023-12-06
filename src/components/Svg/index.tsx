@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 
 interface ISvgProps {
   icon: string;
@@ -10,9 +10,7 @@ export default function Svg({ icon, className }: ISvgProps) {
   const [component, setComponent] = useState(null);
 
   const dynamicImportSvg = () => {
-    import(`../../assets/${icon}.svg`)
-      .then((module) => module.default)
-      .then((comp) => setComponent(comp));
+    import(`../../assets/${icon}.svg`).then(module => module.default).then(comp => setComponent(comp));
   };
 
   dynamicImportSvg();

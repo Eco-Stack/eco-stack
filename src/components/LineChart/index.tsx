@@ -1,5 +1,5 @@
-import React from "react";
-import { applyOpacity } from "./utils";
+import React from 'react';
+import { applyOpacity } from './utils';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,18 +9,10 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface LineChartProps {
   title: string;
@@ -29,21 +21,12 @@ interface LineChartProps {
   options?: object;
 }
 
-export default function LineChart({
-  title,
-  labels,
-  datas,
-  options = {},
-}: LineChartProps) {
+export default function LineChart({ title, labels, datas, options = {} }: LineChartProps) {
   if (labels.length !== datas[0].data.length) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center">
-        <p className="text-center font-bold">
-          Unable to render chart '{title}'
-        </p>
-        <p className="text-center">
-          Data length and label length are not equal.
-        </p>
+        <p className="text-center font-bold">Unable to render chart '{title}'</p>
+        <p className="text-center">Data length and label length are not equal.</p>
       </div>
     );
   }
@@ -52,7 +35,7 @@ export default function LineChart({
     ...options,
     responsive: true,
     interaction: {
-      mode: "index" as const,
+      mode: 'index' as const,
       intersect: false,
     },
     tooltip: {
@@ -66,9 +49,9 @@ export default function LineChart({
     },
     scales: {
       y: {
-        type: "linear" as const,
+        type: 'linear' as const,
         display: true,
-        position: "left" as const,
+        position: 'left' as const,
       },
       // y1: {
       //   type: "linear" as const,
@@ -88,17 +71,13 @@ export default function LineChart({
         label: data.label,
         data: data.data,
         hidden: data.hidden,
-        borderColor: data.color
-          ? data.color
-          : i % 2 === 0
-          ? "rgb(255, 99, 132)"
-          : "rgb(53, 162, 235)",
+        borderColor: data.color ? data.color : i % 2 === 0 ? 'rgb(255, 99, 132)' : 'rgb(53, 162, 235)',
         backgroundColor: data.color
           ? applyOpacity(data.color, 0.5)
           : i % 2 === 0
-          ? "rgba(255, 99, 132, 0.5)"
-          : "rgba(53, 162, 235, 0.5)",
-        yAxisID: "y",
+          ? 'rgba(255, 99, 132, 0.5)'
+          : 'rgba(53, 162, 235, 0.5)',
+        yAxisID: 'y',
       };
     }),
   };

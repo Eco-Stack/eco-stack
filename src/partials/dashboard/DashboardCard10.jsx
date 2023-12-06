@@ -1,61 +1,59 @@
-import React from "react";
+import React from 'react';
 
-import Image01 from "../../images/user-36-05.jpg";
-import Image02 from "../../images/user-36-06.jpg";
-import Image03 from "../../images/user-36-07.jpg";
-import Image04 from "../../images/user-36-08.jpg";
-import Image05 from "../../images/user-36-09.jpg";
+import Image01 from '../../images/user-36-05.jpg';
+import Image02 from '../../images/user-36-06.jpg';
+import Image03 from '../../images/user-36-07.jpg';
+import Image04 from '../../images/user-36-08.jpg';
+import Image05 from '../../images/user-36-09.jpg';
 
 function DashboardCard10() {
   const customers = [
     {
-      id: "0",
+      id: '0',
       image: Image01,
-      name: "Alex Shatov",
-      email: "alexshatov@gmail.com",
-      location: "🇺🇸",
-      spent: "$2,890.66",
+      name: 'Alex Shatov',
+      email: 'alexshatov@gmail.com',
+      location: '🇺🇸',
+      spent: '$2,890.66',
     },
     {
-      id: "1",
+      id: '1',
       image: Image02,
-      name: "Philip Harbach",
-      email: "philip.h@gmail.com",
-      location: "🇩🇪",
-      spent: "$2,767.04",
+      name: 'Philip Harbach',
+      email: 'philip.h@gmail.com',
+      location: '🇩🇪',
+      spent: '$2,767.04',
     },
     {
-      id: "2",
+      id: '2',
       image: Image03,
-      name: "Mirko Fisuk",
-      email: "mirkofisuk@gmail.com",
-      location: "🇫🇷",
-      spent: "$2,996.00",
+      name: 'Mirko Fisuk',
+      email: 'mirkofisuk@gmail.com',
+      location: '🇫🇷',
+      spent: '$2,996.00',
     },
     {
-      id: "3",
+      id: '3',
       image: Image04,
-      name: "Olga Semklo",
-      email: "olga.s@cool.design",
-      location: "🇮🇹",
-      spent: "$1,220.66",
+      name: 'Olga Semklo',
+      email: 'olga.s@cool.design',
+      location: '🇮🇹',
+      spent: '$1,220.66',
     },
     {
-      id: "4",
+      id: '4',
       image: Image05,
-      name: "Burak Long",
-      email: "longburak@gmail.com",
-      location: "🇬🇧",
-      spent: "$1,890.66",
+      name: 'Burak Long',
+      email: 'longburak@gmail.com',
+      location: '🇬🇧',
+      spent: '$1,890.66',
     },
   ];
 
   return (
     <div className="col-span-full rounded-sm border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800 xl:col-span-6">
       <header className="border-b border-slate-100 px-5 py-4 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-          Customers
-        </h2>
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Customers</h2>
       </header>
       <div className="p-3">
         {/* Table */}
@@ -80,7 +78,7 @@ function DashboardCard10() {
             </thead>
             {/* Table body */}
             <tbody className="divide-y divide-slate-100 text-sm dark:divide-slate-700">
-              {customers.map((customer) => {
+              {customers.map(customer => {
                 return (
                   <tr key={customer.id}>
                     <td className="whitespace-nowrap p-2">
@@ -94,23 +92,17 @@ function DashboardCard10() {
                             alt={customer.name}
                           />
                         </div>
-                        <div className="font-medium text-slate-800 dark:text-slate-100">
-                          {customer.name}
-                        </div>
+                        <div className="font-medium text-slate-800 dark:text-slate-100">{customer.name}</div>
                       </div>
                     </td>
                     <td className="whitespace-nowrap p-2">
                       <div className="text-left">{customer.email}</div>
                     </td>
                     <td className="whitespace-nowrap p-2">
-                      <div className="text-left font-medium text-green-500">
-                        {customer.spent}
-                      </div>
+                      <div className="text-left font-medium text-green-500">{customer.spent}</div>
                     </td>
                     <td className="whitespace-nowrap p-2">
-                      <div className="text-center text-lg">
-                        {customer.location}
-                      </div>
+                      <div className="text-center text-lg">{customer.location}</div>
                     </td>
                   </tr>
                 );

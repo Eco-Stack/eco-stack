@@ -1,15 +1,15 @@
-import React from "react";
-import BarChart from "../../charts/BarChart03";
+import React from 'react';
+import BarChart from '../../charts/BarChart03';
 
 // Import utilities
-import { tailwindConfig } from "../../utils/Utils";
+import { tailwindConfig } from '../../utils/Utils';
 
 function DashboardCard11() {
   const chartData = {
-    labels: ["Reasons"],
+    labels: ['Reasons'],
     datasets: [
       {
-        label: "Having difficulties using the product",
+        label: 'Having difficulties using the product',
         data: [131],
         backgroundColor: tailwindConfig().theme.colors.green[500],
         hoverBackgroundColor: tailwindConfig().theme.colors.green[600],
@@ -17,7 +17,7 @@ function DashboardCard11() {
         categoryPercentage: 1,
       },
       {
-        label: "Missing features I need",
+        label: 'Missing features I need',
         data: [100],
         backgroundColor: tailwindConfig().theme.colors.green[800],
         hoverBackgroundColor: tailwindConfig().theme.colors.green[900],
@@ -25,7 +25,7 @@ function DashboardCard11() {
         categoryPercentage: 1,
       },
       {
-        label: "Not satisfied about the quality of the product",
+        label: 'Not satisfied about the quality of the product',
         data: [81],
         backgroundColor: tailwindConfig().theme.colors.sky[400],
         hoverBackgroundColor: tailwindConfig().theme.colors.sky[500],
@@ -33,7 +33,7 @@ function DashboardCard11() {
         categoryPercentage: 1,
       },
       {
-        label: "The product doesn’t look as advertised",
+        label: 'The product doesn’t look as advertised',
         data: [65],
         backgroundColor: tailwindConfig().theme.colors.green[400],
         hoverBackgroundColor: tailwindConfig().theme.colors.green[500],
@@ -41,7 +41,7 @@ function DashboardCard11() {
         categoryPercentage: 1,
       },
       {
-        label: "Other",
+        label: 'Other',
         data: [72],
         backgroundColor: tailwindConfig().theme.colors.slate[200],
         hoverBackgroundColor: tailwindConfig().theme.colors.slate[300],
@@ -54,18 +54,12 @@ function DashboardCard11() {
   return (
     <div className="col-span-full rounded-sm border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-800 xl:col-span-6">
       <header className="border-b border-slate-100 px-5 py-4 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">
-          Reason for Refunds
-        </h2>
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Reason for Refunds</h2>
       </header>
       <div className="px-5 py-3">
         <div className="flex items-start">
-          <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100">
-            449
-          </div>
-          <div className="rounded-full bg-yellow-500 px-1.5 text-sm font-semibold text-white">
-            -22%
-          </div>
+          <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100">449</div>
+          <div className="rounded-full bg-yellow-500 px-1.5 text-sm font-semibold text-white">-22%</div>
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}

@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Transition from "../utils/Transition";
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Transition from '../utils/Transition';
 
-import UserAvatar from "../images/user-avatar-32.png";
+import UserAvatar from '../images/user-avatar-32.png';
 
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -14,16 +14,11 @@ function DropdownProfile({ align }) {
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
+      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
   });
 
   // close if the esc key is pressed
@@ -32,8 +27,8 @@ function DropdownProfile({ align }) {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
   });
 
   return (
@@ -49,10 +44,7 @@ function DropdownProfile({ align }) {
           <span className="ml-2 truncate text-sm font-medium group-hover:text-slate-800 dark:text-slate-300 dark:group-hover:text-slate-200">
             User
           </span>
-          <svg
-            className="ml-1 h-3 w-3 shrink-0 fill-current text-slate-400"
-            viewBox="0 0 12 12"
-          >
+          <svg className="ml-1 h-3 w-3 shrink-0 fill-current text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
         </div>
@@ -60,7 +52,7 @@ function DropdownProfile({ align }) {
 
       <Transition
         className={`min-w-44 absolute top-full z-10 mt-1 origin-top-right overflow-hidden rounded border border-slate-200 bg-white py-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-800 ${
-          align === "right" ? "right-0" : "left-0"
+          align === 'right' ? 'right-0' : 'left-0'
         }`}
         show={dropdownOpen}
         enter="transition ease-out duration-200 transform"
@@ -70,18 +62,10 @@ function DropdownProfile({ align }) {
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <div
-          ref={dropdown}
-          onFocus={() => setDropdownOpen(true)}
-          onBlur={() => setDropdownOpen(false)}
-        >
+        <div ref={dropdown} onFocus={() => setDropdownOpen(true)} onBlur={() => setDropdownOpen(false)}>
           <div className="mb-1 border-b border-slate-200 px-3 pb-2 pt-0.5 dark:border-slate-700">
-            <div className="font-medium text-slate-800 dark:text-slate-100">
-              User
-            </div>
-            <div className="text-xs italic text-slate-500 dark:text-slate-400">
-              Administrator
-            </div>
+            <div className="font-medium text-slate-800 dark:text-slate-100">User</div>
+            <div className="text-xs italic text-slate-500 dark:text-slate-400">Administrator</div>
           </div>
           <ul>
             <li>

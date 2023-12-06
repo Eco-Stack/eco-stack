@@ -1,49 +1,28 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useThemeProvider } from "../utils/ThemeContext";
+import React, { useRef, useEffect, useState } from 'react';
+import { useThemeProvider } from '../utils/ThemeContext';
 
-import { chartColors } from "./ChartjsConfig";
-import {
-  Chart,
-  BarController,
-  BarElement,
-  LinearScale,
-  TimeScale,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import "chartjs-adapter-moment";
+import { chartColors } from './ChartjsConfig';
+import { Chart, BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend } from 'chart.js';
+import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig, formatValue } from "../utils/Utils";
+import { tailwindConfig, formatValue } from '../utils/Utils';
 
-Chart.register(
-  BarController,
-  BarElement,
-  LinearScale,
-  TimeScale,
-  Tooltip,
-  Legend,
-);
+Chart.register(BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend);
 
 function BarChart01({ data, width, height }) {
   const [chart, setChart] = useState(null);
   const canvas = useRef(null);
   const legend = useRef(null);
   const { currentTheme } = useThemeProvider();
-  const darkMode = currentTheme === "dark";
-  const {
-    textColor,
-    gridColor,
-    tooltipBodyColor,
-    tooltipBgColor,
-    tooltipBorderColor,
-  } = chartColors;
+  const darkMode = currentTheme === 'dark';
+  const { textColor, gridColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors;
 
   useEffect(() => {
     const ctx = canvas.current;
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
-      type: "bar",
+      type: 'bar',
       data: data,
       options: {
         layout: {
@@ -61,7 +40,7 @@ function BarChart01({ data, width, height }) {
             },
             ticks: {
               maxTicksLimit: 5,
-              callback: (value) => formatValue(value),
+              callback: value => formatValue(value),
               color: darkMode ? textColor.dark : textColor.light,
             },
             grid: {
@@ -69,12 +48,12 @@ function BarChart01({ data, width, height }) {
             },
           },
           x: {
-            type: "time",
+            type: 'time',
             time: {
-              parser: "MM-DD-YYYY",
-              unit: "month",
+              parser: 'MM-DD-YYYY',
+              unit: 'month',
               displayFormats: {
-                month: "MMM YY",
+                month: 'MMM YY',
               },
             },
             border: {
@@ -95,22 +74,16 @@ function BarChart01({ data, width, height }) {
           tooltip: {
             callbacks: {
               title: () => false, // Disable tooltip title
-              label: (context) => formatValue(context.parsed.y),
+              label: context => formatValue(context.parsed.y),
             },
-            bodyColor: darkMode
-              ? tooltipBodyColor.dark
-              : tooltipBodyColor.light,
-            backgroundColor: darkMode
-              ? tooltipBgColor.dark
-              : tooltipBgColor.light,
-            borderColor: darkMode
-              ? tooltipBorderColor.dark
-              : tooltipBorderColor.light,
+            bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
+            backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
+            borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,
           },
         },
         interaction: {
           intersect: false,
-          mode: "nearest",
+          mode: 'nearest',
         },
         animation: {
           duration: 500,
@@ -120,7 +93,7 @@ function BarChart01({ data, width, height }) {
       },
       plugins: [
         {
-          id: "htmlLegend",
+          id: 'htmlLegend',
           afterUpdate(c, args, options) {
             const ul = legend.current;
             if (!ul) return;
@@ -130,52 +103,44 @@ function BarChart01({ data, width, height }) {
             }
             // Reuse the built-in legendItems generator
             const items = c.options.plugins.legend.labels.generateLabels(c);
-            items.forEach((item) => {
-              const li = document.createElement("li");
+            items.forEach(item => {
+              const li = document.createElement('li');
               li.style.marginRight = tailwindConfig().theme.margin[4];
               // Button element
-              const button = document.createElement("button");
-              button.style.display = "inline-flex";
-              button.style.alignItems = "center";
-              button.style.opacity = item.hidden ? ".3" : "";
+              const button = document.createElement('button');
+              button.style.display = 'inline-flex';
+              button.style.alignItems = 'center';
+              button.style.opacity = item.hidden ? '.3' : '';
               button.onclick = () => {
-                c.setDatasetVisibility(
-                  item.datasetIndex,
-                  !c.isDatasetVisible(item.datasetIndex),
-                );
+                c.setDatasetVisibility(item.datasetIndex, !c.isDatasetVisible(item.datasetIndex));
                 c.update();
               };
               // Color box
-              const box = document.createElement("span");
-              box.style.display = "block";
+              const box = document.createElement('span');
+              box.style.display = 'block';
               box.style.width = tailwindConfig().theme.width[3];
               box.style.height = tailwindConfig().theme.height[3];
               box.style.borderRadius = tailwindConfig().theme.borderRadius.full;
               box.style.marginRight = tailwindConfig().theme.margin[2];
-              box.style.borderWidth = "3px";
+              box.style.borderWidth = '3px';
               box.style.borderColor = item.fillStyle;
-              box.style.pointerEvents = "none";
+              box.style.pointerEvents = 'none';
               // Label
-              const labelContainer = document.createElement("span");
-              labelContainer.style.display = "flex";
-              labelContainer.style.alignItems = "center";
-              const value = document.createElement("span");
-              value.classList.add("text-slate-800", "dark:text-slate-100");
-              value.style.fontSize = tailwindConfig().theme.fontSize["3xl"][0];
-              value.style.lineHeight =
-                tailwindConfig().theme.fontSize["3xl"][1].lineHeight;
+              const labelContainer = document.createElement('span');
+              labelContainer.style.display = 'flex';
+              labelContainer.style.alignItems = 'center';
+              const value = document.createElement('span');
+              value.classList.add('text-slate-800', 'dark:text-slate-100');
+              value.style.fontSize = tailwindConfig().theme.fontSize['3xl'][0];
+              value.style.lineHeight = tailwindConfig().theme.fontSize['3xl'][1].lineHeight;
               value.style.fontWeight = tailwindConfig().theme.fontWeight.bold;
               value.style.marginRight = tailwindConfig().theme.margin[2];
-              value.style.pointerEvents = "none";
-              const label = document.createElement("span");
-              label.classList.add("text-slate-500", "dark:text-slate-400");
+              value.style.pointerEvents = 'none';
+              const label = document.createElement('span');
+              label.classList.add('text-slate-500', 'dark:text-slate-400');
               label.style.fontSize = tailwindConfig().theme.fontSize.sm[0];
-              label.style.lineHeight =
-                tailwindConfig().theme.fontSize.sm[1].lineHeight;
-              const theValue = c.data.datasets[item.datasetIndex].data.reduce(
-                (a, b) => a + b,
-                0,
-              );
+              label.style.lineHeight = tailwindConfig().theme.fontSize.sm[1].lineHeight;
+              const theValue = c.data.datasets[item.datasetIndex].data.reduce((a, b) => a + b, 0);
               const valueText = document.createTextNode(formatValue(theValue));
               const labelText = document.createTextNode(item.text);
               value.appendChild(valueText);
@@ -214,7 +179,7 @@ function BarChart01({ data, width, height }) {
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.light;
       chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light;
     }
-    chart.update("none");
+    chart.update('none');
   }, [currentTheme]);
 
   return (

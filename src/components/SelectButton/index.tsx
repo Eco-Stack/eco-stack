@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 type TypeOption = {
   value: string;
@@ -13,7 +13,7 @@ interface ISelectButtonProps {
 
 export default function SelectButton({
   options = [],
-  currentOption = { label: "", value: "" },
+  currentOption = { label: '', value: '' },
   setOption = () => {},
 }: ISelectButtonProps) {
   const [open, setOpen] = useState(false);
@@ -22,14 +22,14 @@ export default function SelectButton({
     <div className="relative h-auto w-44">
       <input
         type="button"
-        value={`${currentOption.label} ${open ? "▲" : "▼"}`}
-        onClick={() => setOpen((prev) => !prev)}
+        value={`${currentOption.label} ${open ? '▲' : '▼'}`}
+        onClick={() => setOpen(prev => !prev)}
         onBlur={() => setOpen(false)}
         className="h-min w-full cursor-pointer rounded bg-gray-300 px-4 py-1"
       />
       {open ? (
         <ul className="absolute left-0 top-10 flex w-full  flex-col rounded bg-gray-300 px-1 py-1  ">
-          {options.map((option) => (
+          {options.map(option => (
             <li
               onMouseDown={() => {
                 setOption(option);

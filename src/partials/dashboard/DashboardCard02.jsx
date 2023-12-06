@@ -1,53 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import LineChart from "../../charts/LineChart01";
-import Icon from "../../images/icon-01.svg";
-import EditMenu from "../../components/DropdownEditMenu";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import LineChart from '../../charts/LineChart01';
+import Icon from '../../images/icon-01.svg';
+import EditMenu from '../../components/DropdownEditMenu';
 
 // Import utilities
-import { tailwindConfig, hexToRGB } from "../../utils/Utils";
+import { tailwindConfig, hexToRGB } from '../../utils/Utils';
 
 function DashboardCard02() {
   const chartData = {
     labels: [
-      "12-01-2020",
-      "01-01-2021",
-      "02-01-2021",
-      "03-01-2021",
-      "04-01-2021",
-      "05-01-2021",
-      "06-01-2021",
-      "07-01-2021",
-      "08-01-2021",
-      "09-01-2021",
-      "10-01-2021",
-      "11-01-2021",
-      "12-01-2021",
-      "01-01-2022",
-      "02-01-2022",
-      "03-01-2022",
-      "04-01-2022",
-      "05-01-2022",
-      "06-01-2022",
-      "07-01-2022",
-      "08-01-2022",
-      "09-01-2022",
-      "10-01-2022",
-      "11-01-2022",
-      "12-01-2022",
-      "01-01-2023",
+      '12-01-2020',
+      '01-01-2021',
+      '02-01-2021',
+      '03-01-2021',
+      '04-01-2021',
+      '05-01-2021',
+      '06-01-2021',
+      '07-01-2021',
+      '08-01-2021',
+      '09-01-2021',
+      '10-01-2021',
+      '11-01-2021',
+      '12-01-2021',
+      '01-01-2022',
+      '02-01-2022',
+      '03-01-2022',
+      '04-01-2022',
+      '05-01-2022',
+      '06-01-2022',
+      '07-01-2022',
+      '08-01-2022',
+      '09-01-2022',
+      '10-01-2022',
+      '11-01-2022',
+      '12-01-2022',
+      '01-01-2023',
     ],
     datasets: [
       // green line
       {
         data: [
-          622, 622, 426, 471, 365, 365, 238, 324, 288, 206, 324, 324, 500, 409,
-          409, 273, 232, 273, 500, 570, 767, 808, 685, 767, 685, 685,
+          622, 622, 426, 471, 365, 365, 238, 324, 288, 206, 324, 324, 500, 409, 409, 273, 232, 273, 500, 570, 767, 808,
+          685, 767, 685, 685,
         ],
         fill: true,
-        backgroundColor: `rgba(${hexToRGB(
-          tailwindConfig().theme.colors.blue[500],
-        )}, 0.08)`,
+        backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
         borderColor: tailwindConfig().theme.colors.green[500],
         borderWidth: 2,
         tension: 0,
@@ -62,22 +60,16 @@ function DashboardCard02() {
       // Gray line
       {
         data: [
-          732, 610, 610, 504, 504, 504, 349, 349, 504, 342, 504, 610, 391, 192,
-          154, 273, 191, 191, 126, 263, 349, 252, 423, 622, 470, 532,
+          732, 610, 610, 504, 504, 504, 349, 349, 504, 342, 504, 610, 391, 192, 154, 273, 191, 191, 126, 263, 349, 252,
+          423, 622, 470, 532,
         ],
-        borderColor: `rgba(${hexToRGB(
-          tailwindConfig().theme.colors.slate[500],
-        )}, 0.25)`,
+        borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         borderWidth: 2,
         tension: 0,
         pointRadius: 0,
         pointHoverRadius: 3,
-        pointBackgroundColor: `rgba(${hexToRGB(
-          tailwindConfig().theme.colors.slate[500],
-        )}, 0.25)`,
-        pointHoverBackgroundColor: `rgba(${hexToRGB(
-          tailwindConfig().theme.colors.slate[500],
-        )}, 0.25)`,
+        pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
+        pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
         pointBorderWidth: 0,
         pointHoverBorderWidth: 0,
         clip: 20,
@@ -110,28 +102,17 @@ function DashboardCard02() {
               </Link>
             </li>
             <li>
-              <Link
-                className="flex px-3 py-1 text-sm font-medium text-rose-500 hover:text-rose-600"
-                to="#0"
-              >
+              <Link className="flex px-3 py-1 text-sm font-medium text-rose-500 hover:text-rose-600" to="#0">
                 Remove
               </Link>
             </li>
           </EditMenu>
         </header>
-        <h2 className="mb-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
-          Acme Advanced
-        </h2>
-        <div className="mb-1 text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
-          Sales
-        </div>
+        <h2 className="mb-2 text-lg font-semibold text-slate-800 dark:text-slate-100">Acme Advanced</h2>
+        <div className="mb-1 text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">Sales</div>
         <div className="flex items-start">
-          <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100">
-            $17,489
-          </div>
-          <div className="rounded-full bg-amber-500 px-1.5 text-sm font-semibold text-white">
-            -14%
-          </div>
+          <div className="mr-2 text-3xl font-bold text-slate-800 dark:text-slate-100">$17,489</div>
+          <div className="rounded-full bg-amber-500 px-1.5 text-sm font-semibold text-white">-14%</div>
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}

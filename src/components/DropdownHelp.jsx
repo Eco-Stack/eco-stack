@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Transition from "../utils/Transition";
+import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Transition from '../utils/Transition';
 
 function DropdownHelp({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -12,16 +12,11 @@ function DropdownHelp({ align }) {
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
+      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
   });
 
   // close if the esc key is pressed
@@ -30,8 +25,8 @@ function DropdownHelp({ align }) {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
   });
 
   return (
@@ -39,18 +34,14 @@ function DropdownHelp({ align }) {
       <button
         ref={trigger}
         className={`flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 ${
-          dropdownOpen && "bg-slate-200"
+          dropdownOpen && 'bg-slate-200'
         }`}
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
         <span className="sr-only">Need help?</span>
-        <svg
-          className="h-4 w-4"
-          viewBox="0 0 16 16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg className="h-4 w-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
           <path
             className="fill-current text-slate-500 dark:text-slate-400"
             d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 12c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-3H7V4h2v5z"
@@ -60,7 +51,7 @@ function DropdownHelp({ align }) {
 
       <Transition
         className={`min-w-44 absolute top-full z-10 mt-1 origin-top-right overflow-hidden rounded border border-slate-200 bg-white py-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-800 ${
-          align === "right" ? "right-0" : "left-0"
+          align === 'right' ? 'right-0' : 'left-0'
         }`}
         show={dropdownOpen}
         enter="transition ease-out duration-200 transform"
@@ -70,11 +61,7 @@ function DropdownHelp({ align }) {
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <div
-          ref={dropdown}
-          onFocus={() => setDropdownOpen(true)}
-          onBlur={() => setDropdownOpen(false)}
-        >
+        <div ref={dropdown} onFocus={() => setDropdownOpen(true)} onBlur={() => setDropdownOpen(false)}>
           <div className="px-3 pb-2 pt-1.5 text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">
             Need help?
           </div>

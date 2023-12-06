@@ -1,31 +1,14 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useThemeProvider } from "../utils/ThemeContext";
+import React, { useRef, useEffect, useState } from 'react';
+import { useThemeProvider } from '../utils/ThemeContext';
 
-import { chartColors } from "./ChartjsConfig";
-import {
-  Chart,
-  LineController,
-  LineElement,
-  Filler,
-  PointElement,
-  LinearScale,
-  TimeScale,
-  Tooltip,
-} from "chart.js";
-import "chartjs-adapter-moment";
+import { chartColors } from './ChartjsConfig';
+import { Chart, LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip } from 'chart.js';
+import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig, formatValue } from "../utils/Utils";
+import { tailwindConfig, formatValue } from '../utils/Utils';
 
-Chart.register(
-  LineController,
-  LineElement,
-  Filler,
-  PointElement,
-  LinearScale,
-  TimeScale,
-  Tooltip,
-);
+Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 
 function RealtimeChart({ data, width, height }) {
   const [chart, setChart] = useState(null);
@@ -33,21 +16,14 @@ function RealtimeChart({ data, width, height }) {
   const chartValue = useRef(null);
   const chartDeviation = useRef(null);
   const { currentTheme } = useThemeProvider();
-  const darkMode = currentTheme === "dark";
-  const {
-    textColor,
-    gridColor,
-    tooltipTitleColor,
-    tooltipBodyColor,
-    tooltipBgColor,
-    tooltipBorderColor,
-  } = chartColors;
+  const darkMode = currentTheme === 'dark';
+  const { textColor, gridColor, tooltipTitleColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors;
 
   useEffect(() => {
     const ctx = canvas.current;
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
-      type: "line",
+      type: 'line',
       data: data,
       options: {
         layout: {
@@ -62,7 +38,7 @@ function RealtimeChart({ data, width, height }) {
             suggestedMax: 80,
             ticks: {
               maxTicksLimit: 5,
-              callback: (value) => formatValue(value),
+              callback: value => formatValue(value),
               color: darkMode ? textColor.dark : textColor.light,
             },
             grid: {
@@ -70,13 +46,13 @@ function RealtimeChart({ data, width, height }) {
             },
           },
           x: {
-            type: "time",
+            type: 'time',
             time: {
-              parser: "hh:mm:ss",
-              unit: "second",
-              tooltipFormat: "MMM DD, H:mm:ss a",
+              parser: 'hh:mm:ss',
+              unit: 'second',
+              tooltipFormat: 'MMM DD, H:mm:ss a',
               displayFormats: {
-                second: "H:mm:ss",
+                second: 'H:mm:ss',
               },
             },
             border: {
@@ -98,28 +74,20 @@ function RealtimeChart({ data, width, height }) {
           },
           tooltip: {
             titleFont: {
-              weight: "600",
+              weight: '600',
             },
             callbacks: {
-              label: (context) => formatValue(context.parsed.y),
+              label: context => formatValue(context.parsed.y),
             },
-            titleColor: darkMode
-              ? tooltipTitleColor.dark
-              : tooltipTitleColor.light,
-            bodyColor: darkMode
-              ? tooltipBodyColor.dark
-              : tooltipBodyColor.light,
-            backgroundColor: darkMode
-              ? tooltipBgColor.dark
-              : tooltipBgColor.light,
-            borderColor: darkMode
-              ? tooltipBorderColor.dark
-              : tooltipBorderColor.light,
+            titleColor: darkMode ? tooltipTitleColor.dark : tooltipTitleColor.light,
+            bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
+            backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
+            borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,
           },
         },
         interaction: {
           intersect: false,
-          mode: "nearest",
+          mode: 'nearest',
         },
         animation: false,
         maintainAspectRatio: false,
@@ -132,23 +100,16 @@ function RealtimeChart({ data, width, height }) {
 
   // Update header values
   useEffect(() => {
-    const currentValue =
-      data.datasets[0].data[data.datasets[0].data.length - 1];
-    const previousValue =
-      data.datasets[0].data[data.datasets[0].data.length - 2];
+    const currentValue = data.datasets[0].data[data.datasets[0].data.length - 1];
+    const previousValue = data.datasets[0].data[data.datasets[0].data.length - 2];
     const diff = ((currentValue - previousValue) / previousValue) * 100;
-    chartValue.current.innerHTML =
-      data.datasets[0].data[data.datasets[0].data.length - 1];
+    chartValue.current.innerHTML = data.datasets[0].data[data.datasets[0].data.length - 1];
     if (diff < 0) {
-      chartDeviation.current.style.backgroundColor =
-        tailwindConfig().theme.colors.amber[500];
+      chartDeviation.current.style.backgroundColor = tailwindConfig().theme.colors.amber[500];
     } else {
-      chartDeviation.current.style.backgroundColor =
-        tailwindConfig().theme.colors.emerald[500];
+      chartDeviation.current.style.backgroundColor = tailwindConfig().theme.colors.emerald[500];
     }
-    chartDeviation.current.innerHTML = `${diff > 0 ? "+" : ""}${diff.toFixed(
-      2,
-    )}%`;
+    chartDeviation.current.innerHTML = `${diff > 0 ? '+' : ''}${diff.toFixed(2)}%`;
   }, [data]);
 
   useEffect(() => {
@@ -171,7 +132,7 @@ function RealtimeChart({ data, width, height }) {
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.light;
       chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light;
     }
-    chart.update("none");
+    chart.update('none');
   }, [currentTheme]);
 
   return (
@@ -181,10 +142,7 @@ function RealtimeChart({ data, width, height }) {
           <div className="mr-2 text-3xl font-bold tabular-nums text-slate-800 dark:text-slate-100">
             $<span ref={chartValue}>57.81</span>
           </div>
-          <div
-            ref={chartDeviation}
-            className="rounded-full px-1.5 text-sm font-semibold text-white"
-          ></div>
+          <div ref={chartDeviation} className="rounded-full px-1.5 text-sm font-semibold text-white"></div>
         </div>
       </div>
       <div className="grow">

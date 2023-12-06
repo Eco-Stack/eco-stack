@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Sidebar from "../partials/Sidebar";
-import Header from "../partials/Header";
+import React, { useState } from 'react';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
 
 export default function Signup() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,9 +14,7 @@ export default function Signup() {
         {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <main>
-          <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
-            signup
-          </div>
+          <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">signup</div>
         </main>
       </div>
     </div>

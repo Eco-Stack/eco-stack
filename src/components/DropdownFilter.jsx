@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import Transition from "../utils/Transition";
+import React, { useState, useRef, useEffect } from 'react';
+import Transition from '../utils/Transition';
 
 function DropdownFilter({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,16 +11,11 @@ function DropdownFilter({ align }) {
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
+      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
   });
 
   // close if the esc key is pressed
@@ -29,8 +24,8 @@ function DropdownFilter({ align }) {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
   });
 
   return (
@@ -52,9 +47,7 @@ function DropdownFilter({ align }) {
         show={dropdownOpen}
         tag="div"
         className={`min-w-56 absolute left-0 right-auto top-full z-10 mt-1 origin-top-right overflow-hidden rounded border border-slate-200 bg-white pt-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-800 ${
-          align === "right"
-            ? "md:left-auto md:right-0"
-            : "md:left-0 md:right-auto"
+          align === 'right' ? 'md:left-auto md:right-0' : 'md:left-0 md:right-auto'
         }`}
         enter="transition ease-out duration-200 transform"
         enterStart="opacity-0 -translate-y-2"
@@ -71,17 +64,13 @@ function DropdownFilter({ align }) {
             <li className="px-3 py-1">
               <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2 text-sm font-medium">
-                  Direct VS Indirect
-                </span>
+                <span className="ml-2 text-sm font-medium">Direct VS Indirect</span>
               </label>
             </li>
             <li className="px-3 py-1">
               <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2 text-sm font-medium">
-                  Real Time Value
-                </span>
+                <span className="ml-2 text-sm font-medium">Real Time Value</span>
               </label>
             </li>
             <li className="px-3 py-1">
@@ -93,9 +82,7 @@ function DropdownFilter({ align }) {
             <li className="px-3 py-1">
               <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2 text-sm font-medium">
-                  Sales VS Refunds
-                </span>
+                <span className="ml-2 text-sm font-medium">Sales VS Refunds</span>
               </label>
             </li>
             <li className="px-3 py-1">

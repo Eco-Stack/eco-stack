@@ -1,18 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useThemeProvider } from "../utils/ThemeContext";
+import React, { useRef, useEffect, useState } from 'react';
+import { useThemeProvider } from '../utils/ThemeContext';
 
-import { chartColors } from "./ChartjsConfig";
-import {
-  Chart,
-  DoughnutController,
-  ArcElement,
-  TimeScale,
-  Tooltip,
-} from "chart.js";
-import "chartjs-adapter-moment";
+import { chartColors } from './ChartjsConfig';
+import { Chart, DoughnutController, ArcElement, TimeScale, Tooltip } from 'chart.js';
+import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig } from "../utils/Utils";
+import { tailwindConfig } from '../utils/Utils';
 
 Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip);
 
@@ -21,22 +15,17 @@ function DoughnutChart({ data, width, height }) {
   const canvas = useRef(null);
   const legend = useRef(null);
   const { currentTheme } = useThemeProvider();
-  const darkMode = currentTheme === "dark";
-  const {
-    tooltipTitleColor,
-    tooltipBodyColor,
-    tooltipBgColor,
-    tooltipBorderColor,
-  } = chartColors;
+  const darkMode = currentTheme === 'dark';
+  const { tooltipTitleColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors;
 
   useEffect(() => {
     const ctx = canvas.current;
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
-      type: "doughnut",
+      type: 'doughnut',
       data: data,
       options: {
-        cutout: "80%",
+        cutout: '80%',
         layout: {
           padding: 24,
         },
@@ -45,23 +34,15 @@ function DoughnutChart({ data, width, height }) {
             display: false,
           },
           tooltip: {
-            titleColor: darkMode
-              ? tooltipTitleColor.dark
-              : tooltipTitleColor.light,
-            bodyColor: darkMode
-              ? tooltipBodyColor.dark
-              : tooltipBodyColor.light,
-            backgroundColor: darkMode
-              ? tooltipBgColor.dark
-              : tooltipBgColor.light,
-            borderColor: darkMode
-              ? tooltipBorderColor.dark
-              : tooltipBorderColor.light,
+            titleColor: darkMode ? tooltipTitleColor.dark : tooltipTitleColor.light,
+            bodyColor: darkMode ? tooltipBodyColor.dark : tooltipBodyColor.light,
+            backgroundColor: darkMode ? tooltipBgColor.dark : tooltipBgColor.light,
+            borderColor: darkMode ? tooltipBorderColor.dark : tooltipBorderColor.light,
           },
         },
         interaction: {
           intersect: false,
-          mode: "nearest",
+          mode: 'nearest',
         },
         animation: {
           duration: 500,
@@ -71,7 +52,7 @@ function DoughnutChart({ data, width, height }) {
       },
       plugins: [
         {
-          id: "htmlLegend",
+          id: 'htmlLegend',
           afterUpdate(c, args, options) {
             const ul = legend.current;
             if (!ul) return;
@@ -81,40 +62,40 @@ function DoughnutChart({ data, width, height }) {
             }
             // Reuse the built-in legendItems generator
             const items = c.options.plugins.legend.labels.generateLabels(c);
-            items.forEach((item) => {
-              const li = document.createElement("li");
+            items.forEach(item => {
+              const li = document.createElement('li');
               li.style.margin = tailwindConfig().theme.margin[1];
               // Button element
-              const button = document.createElement("button");
+              const button = document.createElement('button');
               button.classList.add(
-                "btn-xs",
-                "bg-white",
-                "dark:bg-slate-800",
-                "text-slate-500",
-                "dark:text-slate-400",
-                "border",
-                "border-slate-200",
-                "dark:border-slate-700",
-                "shadow-md",
+                'btn-xs',
+                'bg-white',
+                'dark:bg-slate-800',
+                'text-slate-500',
+                'dark:text-slate-400',
+                'border',
+                'border-slate-200',
+                'dark:border-slate-700',
+                'shadow-md',
               );
-              button.style.opacity = item.hidden ? ".3" : "";
+              button.style.opacity = item.hidden ? '.3' : '';
               button.onclick = () => {
                 c.toggleDataVisibility(item.index);
                 c.update();
               };
               // Color box
-              const box = document.createElement("span");
-              box.style.display = "block";
+              const box = document.createElement('span');
+              box.style.display = 'block';
               box.style.width = tailwindConfig().theme.width[2];
               box.style.height = tailwindConfig().theme.height[2];
               box.style.backgroundColor = item.fillStyle;
               box.style.borderRadius = tailwindConfig().theme.borderRadius.sm;
               box.style.marginRight = tailwindConfig().theme.margin[1];
-              box.style.pointerEvents = "none";
+              box.style.pointerEvents = 'none';
               // Label
-              const label = document.createElement("span");
-              label.style.display = "flex";
-              label.style.alignItems = "center";
+              const label = document.createElement('span');
+              label.style.display = 'flex';
+              label.style.alignItems = 'center';
               const labelText = document.createTextNode(item.text);
               label.appendChild(labelText);
               li.appendChild(button);
@@ -145,7 +126,7 @@ function DoughnutChart({ data, width, height }) {
       chart.options.plugins.tooltip.backgroundColor = tooltipBgColor.light;
       chart.options.plugins.tooltip.borderColor = tooltipBorderColor.light;
     }
-    chart.update("none");
+    chart.update('none');
   }, [currentTheme]);
 
   return (

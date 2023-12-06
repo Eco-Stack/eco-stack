@@ -1,27 +1,27 @@
-import React, { useState, useRef, useEffect } from "react";
-import Transition from "../utils/Transition";
+import React, { useState, useRef, useEffect } from 'react';
+import Transition from '../utils/Transition';
 
 function DateSelect() {
   const options = [
     {
       id: 0,
-      period: "Today",
+      period: 'Today',
     },
     {
       id: 1,
-      period: "Last 7 Days",
+      period: 'Last 7 Days',
     },
     {
       id: 2,
-      period: "Last Month",
+      period: 'Last Month',
     },
     {
       id: 3,
-      period: "Last 12 Months",
+      period: 'Last 12 Months',
     },
     {
       id: 4,
-      period: "All Time",
+      period: 'All Time',
     },
   ];
 
@@ -35,16 +35,11 @@ function DateSelect() {
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
+      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
   });
 
   // close if the esc key is pressed
@@ -53,8 +48,8 @@ function DateSelect() {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
   });
 
   return (
@@ -68,20 +63,12 @@ function DateSelect() {
         aria-expanded={dropdownOpen}
       >
         <span className="flex items-center">
-          <svg
-            className="mr-2 h-4 w-4 shrink-0 fill-current text-slate-500 dark:text-slate-400"
-            viewBox="0 0 16 16"
-          >
+          <svg className="mr-2 h-4 w-4 shrink-0 fill-current text-slate-500 dark:text-slate-400" viewBox="0 0 16 16">
             <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
           </svg>
           <span>{options[selected].period}</span>
         </span>
-        <svg
-          className="ml-1 shrink-0 fill-current text-slate-400"
-          width="11"
-          height="7"
-          viewBox="0 0 11 7"
-        >
+        <svg className="ml-1 shrink-0 fill-current text-slate-400" width="11" height="7" viewBox="0 0 11 7">
           <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z" />
         </svg>
       </button>
@@ -102,13 +89,13 @@ function DateSelect() {
           onFocus={() => setDropdownOpen(true)}
           onBlur={() => setDropdownOpen(false)}
         >
-          {options.map((option) => {
+          {options.map(option => {
             return (
               <button
                 key={option.id}
                 tabIndex="0"
                 className={`flex w-full cursor-pointer items-center px-3 py-1 hover:bg-slate-50 hover:dark:bg-slate-700/20 ${
-                  option.id === selected && "text-green-500"
+                  option.id === selected && 'text-green-500'
                 }`}
                 onClick={() => {
                   setSelected(option.id);
@@ -116,9 +103,7 @@ function DateSelect() {
                 }}
               >
                 <svg
-                  className={`mr-2 shrink-0 fill-current text-green-500 ${
-                    option.id !== selected && "invisible"
-                  }`}
+                  className={`mr-2 shrink-0 fill-current text-green-500 ${option.id !== selected && 'invisible'}`}
                   width="12"
                   height="9"
                   viewBox="0 0 12 9"

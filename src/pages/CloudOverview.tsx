@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Sidebar from "../partials/Sidebar";
-import Header from "../partials/Header";
+import React, { useState } from 'react';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
 
 export default function CloudOverview() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
