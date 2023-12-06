@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 interface IFragmentedData {
-  label: string;
+  label: React.ReactElement | string;
   value?: string;
   align?: 'left' | 'center' | 'right';
   span?: string;
