@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 
 interface ISvgProps {
@@ -15,5 +14,5 @@ export default function Svg({ icon, className }: ISvgProps) {
 
   dynamicImportSvg();
 
-  return component ? <img src={component}></img> : <div>loading</div>;
+  return component ? <img className={className} src={component}></img> : <div>loading</div>;
 }

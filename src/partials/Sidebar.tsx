@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import SidebarLinkGroup from './SidebarLinkGroup';
+import { ROUTES } from 'router';
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
@@ -102,14 +103,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </h3>
             <ul className="mt-3">
               {/* Dashboard */}
-              <SidebarLinkGroup activecondition={pathname === '/' || pathname === '/cloud'}>
+              <SidebarLinkGroup activecondition={pathname === '/project' || pathname === '/cloud'}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
                       <a
                         href="#0"
                         className={`block truncate text-slate-200 transition duration-150 ${
-                          pathname === '/' || pathname === '/cloud' ? 'hover:text-slate-200' : 'hover:text-white'
+                          pathname === '/project' || pathname === '/cloud' ? 'hover:text-slate-200' : 'hover:text-white'
                         }`}
                         onClick={e => {
                           e.preventDefault();
@@ -121,19 +122,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             <svg className="h-6 w-6 shrink-0" viewBox="0 0 24 24">
                               <path
                                 className={`fill-current ${
-                                  pathname === '/' || pathname === '/cloud' ? 'text-green-500' : 'text-slate-400'
+                                  pathname === '/project' || pathname === '/cloud' ? 'text-green-500' : 'text-slate-400'
                                 }`}
                                 d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"
                               />
                               <path
                                 className={`fill-current ${
-                                  pathname === '/' || pathname === '/cloud' ? 'text-green-600' : 'text-slate-600'
+                                  pathname === '/project' || pathname === '/cloud' ? 'text-green-600' : 'text-slate-600'
                                 }`}
                                 d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z"
                               />
                               <path
                                 className={`fill-current ${
-                                  pathname === '/' || pathname === '/cloud' ? 'text-green-200' : 'text-slate-400'
+                                  pathname === '/project' || pathname === '/cloud' ? 'text-green-200' : 'text-slate-400'
                                 }`}
                                 d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
                               />
@@ -158,7 +159,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/"
+                              to={ROUTES.projectOverview}
                               className={({ isActive }) =>
                                 'block truncate transition duration-150 ' +
                                 (isActive ? 'text-green-500' : 'text-slate-400 hover:text-slate-200')
@@ -172,7 +173,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/cloud"
+                              to={ROUTES.cloudOverview}
                               className={({ isActive }) =>
                                 'block truncate transition duration-150 ' +
                                 (isActive ? 'text-green-500' : 'text-slate-400 hover:text-slate-200')
