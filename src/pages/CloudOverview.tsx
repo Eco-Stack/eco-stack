@@ -47,7 +47,7 @@ export default function ProjectOverview() {
             <div className="my-3"></div>
             <div className="flex flex-col xl:flex-row gap-3">
               {/* TOP 10 인스턴스 갯수 */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">TOP 10 인스턴스 갯수</h3>
                 <FragmentedRow
                   className="text-black/40 dark:text-white/40 font-bold pt-2"
@@ -72,7 +72,7 @@ export default function ProjectOverview() {
               </RoundedBox>
 
               {/* TOP 10 인스턴스 증가 */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">
                   TOP 10 인스턴스 <b className="font-bold text-red-600">증가</b>(1day)
                 </h3>
@@ -99,7 +99,7 @@ export default function ProjectOverview() {
               </RoundedBox>
 
               {/* TOP 10 인스턴스 감소 */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">
                   TOP 10 인스턴스 <b className="font-bold text-blue-600">감소</b>(1day)
                 </h3>
@@ -126,7 +126,7 @@ export default function ProjectOverview() {
               </RoundedBox>
 
               {/* TOP 10 평균 리소스 할당량 */}
-              <RoundedBox className="min-w-60 flex-grow-[4] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[4] flex flex-col p-4">
                 <h3 className="font-bold text-lg">TOP 10 평균 리소스 할당량</h3>
                 <FragmentedRow
                   className="text-white/40 dark:text-white/40 font-bold pt-2"
@@ -166,7 +166,7 @@ export default function ProjectOverview() {
             {/* Overviews */}
             <div className="flex flex-col xl:flex-row gap-3">
               {/* TOP 10 인스턴스 갯수 */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">TOP 10 CPU 사용량</h3>
                 <FragmentedRow
                   className="text-white/40 dark:text-white/40 font-bold pt-2"
@@ -191,7 +191,7 @@ export default function ProjectOverview() {
               </RoundedBox>
 
               {/* TOP 10 메모리 사용량 */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">TOP 10 메모리 사용량</h3>
                 <FragmentedRow
                   className="text-white/40 dark:text-white/40 font-bold pt-2"
@@ -216,7 +216,7 @@ export default function ProjectOverview() {
               </RoundedBox>
 
               {/* TOP 10 DISK Usage */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">TOP 10 DISK 사용량</h3>
                 <FragmentedRow
                   className="text-white/40 dark:text-white/40 font-bold pt-2"
@@ -241,7 +241,7 @@ export default function ProjectOverview() {
               </RoundedBox>
 
               {/* TOP 10 Network Usage */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
+              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
                 <h3 className="font-bold text-lg">TOP 10 Network 사용량</h3>
                 <FragmentedRow
                   className="text-white/40 dark:text-white/40 font-bold pt-2"

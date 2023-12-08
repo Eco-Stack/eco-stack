@@ -8,7 +8,7 @@ interface IRoundedBoxProps extends React.ComponentPropsWithoutRef<'div'> {
 
 export default function RoundedBox({ children, className, ...props }: IRoundedBoxProps) {
   return (
-    <div {...props} className={clsx(['rounded-md   bg-gray-700 p-2 text-gray-200', className])}>
+    <div {...props} className={clsx(['rounded-md bg-gray-700 p-2 text-gray-200', className])}>
       {children}
     </div>
   );

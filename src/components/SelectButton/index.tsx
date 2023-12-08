@@ -29,7 +29,7 @@ export default function SelectButton({
         className="h-min w-full cursor-pointer rounded bg-gray-700 px-4 py-1"
       />
       {open ? (
-        <ul className="absolute z-1 left-0 top-10 flex w-full  flex-col rounded bg-gray-700 px-1 py-1  ">
+        <ul className="absolute z-1 left-0 top-10 flex w-full  flex-col rounded bg-gray-700 px-1 py-1 shadow-2xl ">
           {options.map(option => (
             <li
               className={clsx(
