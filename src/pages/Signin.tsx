@@ -25,11 +25,18 @@ export default function Signin() {
         <label htmlFor="password">Password</label>
         <Input
           type="password"
-          className="mt-1 mb-4"
+          className="mt-1"
           id="password"
           name="password"
           placeholder="Please enter your password"
         />
+
+        <div className="min-w-[320px] w-[60%] my-1 flex justify-between text-sm">
+          <p onClick={() => navigate(ROUTES.signup)} className="hover:underline cursor-pointer">
+            Signup
+          </p>
+          <p className="hover:underline cursor-pointer">Forgot Password?</p>
+        </div>
 
         <Input
           className="rounded !bg-green-400 font-bold !text-black h-10 cursor-pointer hover:brightness-95"
