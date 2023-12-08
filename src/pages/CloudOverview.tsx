@@ -50,7 +50,7 @@ export default function ProjectOverview() {
               <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 인스턴스 갯수</h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-black/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '프로젝트명', span: '1' },
                     { label: '갯수', span: '1', align: 'right' },
@@ -77,7 +77,7 @@ export default function ProjectOverview() {
                   TOP 10 인스턴스 <b className="font-bold text-red-600">증가</b>(1day)
                 </h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '프로젝트명', span: '1' },
                     { label: <span className="text-red-600/50">증가</span>, span: '1', align: 'right' },
@@ -104,7 +104,7 @@ export default function ProjectOverview() {
                   TOP 10 인스턴스 <b className="font-bold text-blue-600">감소</b>(1day)
                 </h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '프로젝트명', span: '1' },
                     { label: <span className="text-blue-800/50">감소</span>, span: '1', align: 'right' },
@@ -129,7 +129,7 @@ export default function ProjectOverview() {
               <RoundedBox className="min-w-60 flex-grow-[4] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 평균 리소스 할당량</h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '프로젝트명', span: '3' },
                     { label: 'CPU', span: '2', align: 'right' },
@@ -169,7 +169,7 @@ export default function ProjectOverview() {
               <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 CPU 사용량</h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '하이퍼바이저', span: '1' },
                     { label: '사용량(%)', span: '1', align: 'right' },
@@ -194,7 +194,7 @@ export default function ProjectOverview() {
               <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 메모리 사용량</h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '하이퍼바이저', span: '1' },
                     { label: '사용량(%)', span: '1', align: 'right' },
@@ -219,7 +219,7 @@ export default function ProjectOverview() {
               <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 DISK 사용량</h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '하이퍼바이저', span: '1' },
                     { label: '사용량(%)', span: '1', align: 'right' },
@@ -244,7 +244,7 @@ export default function ProjectOverview() {
               <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4 hover:brightness-95">
                 <h3 className="font-bold text-lg">TOP 10 Network 사용량</h3>
                 <FragmentedRow
-                  className="text-black/40 font-bold pt-2"
+                  className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '하이퍼바이저', span: '1' },
                     { label: '사용량(%)', span: '1', align: 'right' },

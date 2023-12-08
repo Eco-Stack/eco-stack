@@ -19,23 +19,23 @@ export default function SelectButton({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative h-auto w-44 text-black">
+    <div className="relative h-auto w-44 text-gray-300 font-bold">
       <input
         type="button"
         value={`${currentOption.label} ${open ? '▲' : '▼'}`}
         onClick={() => setOpen(prev => !prev)}
         onBlur={() => setOpen(false)}
-        className="h-min w-full cursor-pointer rounded bg-gray-300 px-4 py-1"
+        className="h-min w-full cursor-pointer rounded bg-gray-700 px-4 py-1"
       />
       {open ? (
-        <ul className="absolute z-1 left-0 top-10 flex w-full  flex-col rounded bg-gray-300 px-1 py-1  ">
+        <ul className="absolute z-1 left-0 top-10 flex w-full  flex-col rounded bg-gray-700 px-1 py-1  ">
           {options.map(option => (
             <li
               onMouseDown={() => {
                 setOption(option);
                 setOpen(false);
               }}
-              className="cursor-pointer rounded p-1 hover:bg-gray-400"
+              className="cursor-pointer rounded p-1 hover:bg-gray-800"
             >
               {option.label}
             </li>
