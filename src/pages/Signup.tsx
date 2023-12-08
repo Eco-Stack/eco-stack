@@ -26,6 +26,14 @@ export default function Signup() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if ([signup.email, signup.password, signup.passwordConfirm].some(e => e === '')) {
+      setError('Please fill in all the forms');
+      return;
+    }
+    if (signup.password !== signup.passwordConfirm) {
+      setError("Password confirm doesn't match");
+      return;
+    }
     // navigate(ROUTES.projectOverview);
     // navigate(ROUTES.cloudOverview);
   };
@@ -68,9 +76,15 @@ export default function Signup() {
           placeholder="Please confirm your password"
         />
 
-        <label htmlFor="switcher" className="flex justify-center cursor-pointer my-4">
+        <label htmlFor="role" className="flex justify-center cursor-pointer my-4">
           <div className="relative flex justify-between w-full h-8">
-            <input id="switcher" type="checkbox" className="hidden peer"></input>
+            <input
+              checked={signup.role === 'ADMIN' ? false : true}
+              onChange={e => setSignup(prev => ({ ...prev, role: e.target.checked ? 'USER' : 'ADMIN' }))}
+              id="role"
+              type="checkbox"
+              className="hidden peer"
+            ></input>
             <span className="text-center flex-grow relative z-20 self-center transition text-black peer-checked:text-white">
               ADMIN
             </span>
