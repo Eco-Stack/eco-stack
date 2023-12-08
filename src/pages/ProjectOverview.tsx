@@ -14,8 +14,8 @@ export default function ProjectOverview() {
     value: '7',
   });
   const [projectViewOption, setProjectViewOption] = useState({
-    label: 'PROJECT',
-    value: 'project',
+    label: 'Instance1',
+    value: 'instance1',
   });
 
   return (
@@ -406,6 +406,8 @@ export default function ProjectOverview() {
 
             <div className="flex w-full justify-between text-black">
               <SelectButton
+                currentOption={projectViewOption}
+                setOption={option => setProjectViewOption(option)}
                 options={[
                   {
                     label: 'Instance1',
@@ -420,8 +422,6 @@ export default function ProjectOverview() {
                     value: 'instance3',
                   },
                 ]}
-                currentOption={projectViewOption}
-                setOption={option => setProjectViewOption(option)}
               />
               <SelectButton
                 options={[

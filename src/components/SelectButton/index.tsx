@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 
 type TypeOption = {
@@ -31,11 +32,14 @@ export default function SelectButton({
         <ul className="absolute z-1 left-0 top-10 flex w-full  flex-col rounded bg-gray-700 px-1 py-1  ">
           {options.map(option => (
             <li
+              className={clsx(
+                'cursor-pointer rounded p-1 hover:bg-gray-800',
+                option.value === currentOption.value && 'bg-gray-800',
+              )}
               onMouseDown={() => {
                 setOption(option);
                 setOpen(false);
               }}
-              className="cursor-pointer rounded p-1 hover:bg-gray-800"
             >
               {option.label}
             </li>
