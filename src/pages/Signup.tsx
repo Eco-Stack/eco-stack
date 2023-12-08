@@ -1,4 +1,5 @@
 import lottieIconEco from 'assets/lottie_icon_eco.json';
+import clsx from 'clsx';
 import Input from 'components/Input';
 import Lottie from 'lottie-react';
 import { useState } from 'react';
@@ -109,7 +110,14 @@ export default function Signup() {
         ></Input>
 
         {/* error */}
-        <div className="text-red-500 w-full  h-auto break-words font-bold ">{error}</div>
+        <div
+          className={clsx([
+            'text-red-500 w-full h-auto break-words font-bold transition-all',
+            error ? 'opacity-100' : 'opacity-0',
+          ])}
+        >
+          {error}
+        </div>
       </form>
     </div>
   );
