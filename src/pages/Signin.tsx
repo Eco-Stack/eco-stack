@@ -15,7 +15,7 @@ export default function Signin() {
   };
 
   return (
-    <div className="flex h-[90vh] flex-col justify-center items-center overflow-hidden gap-10 text-white">
+    <div className="flex h-full flex-col justify-center items-center overflow-hidden gap-10 text-white">
       <h1 className="text-center text-green-400 text-[3rem] font-bold translate-y-20 ">Eco Stack</h1>
       <Lottie animationData={lottieIconEco} />
       <form className="flex flex-col" onSubmit={e => handleSubmit(e)}>
