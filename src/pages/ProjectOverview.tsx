@@ -6,8 +6,13 @@ import { faker } from '@faker-js/faker';
 import FragmentedRow from '../components/FragmentedRow';
 import RoundedBox from '../components/RoundedBox';
 import SelectButton from '../components/SelectButton';
+import { useTestQuery } from 'apis/test';
 
 export default function ProjectOverview() {
+  const { data } = useTestQuery();
+
+  console.log('data', data);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateViewOption, setDateViewOption] = useState({
     label: 'WEEK',
