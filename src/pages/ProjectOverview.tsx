@@ -91,9 +91,9 @@ export default function ProjectOverview() {
                 }
               ></RoundedBox>
 
-              <RoundedBox className="flex h-44 w-full flex-col ">
+              <RoundedBox className="flex min-h-44 w-full flex-col h-full">
                 <p className="self-start font-bold">TOP 10 Resource-Intensive Instances</p>
-                <div className="flex flex-row text-sm">
+                <div className="flex flex-col text-sm xl:flex-row h-full">
                   <div className="flex w-full flex-col text-gray-300">
                     <FragmentedRow
                       className=" font-bold text-gray-400"
@@ -112,10 +112,6 @@ export default function ProjectOverview() {
                         },
                         {
                           label: 'Disk',
-                          span: '1',
-                        },
-                        {
-                          label: 'Network',
                           span: '1',
                         },
                       ]}
@@ -139,10 +135,6 @@ export default function ProjectOverview() {
                           label: '456KB',
                           span: '1',
                         },
-                        {
-                          label: '953KB',
-                          span: '1',
-                        },
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
@@ -162,10 +154,6 @@ export default function ProjectOverview() {
                         },
                         {
                           label: '356KB',
-                          span: '1',
-                        },
-                        {
-                          label: '873KB',
                           span: '1',
                         },
                       ]}
@@ -189,10 +177,6 @@ export default function ProjectOverview() {
                           label: '346KB',
                           span: '1',
                         },
-                        {
-                          label: '256KB',
-                          span: '1',
-                        },
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
@@ -214,10 +198,6 @@ export default function ProjectOverview() {
                           label: '123KB',
                           span: '1',
                         },
-                        {
-                          label: '255KB',
-                          span: '1',
-                        },
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
@@ -237,10 +217,6 @@ export default function ProjectOverview() {
                         },
                         {
                           label: '133KB',
-                          span: '1',
-                        },
-                        {
-                          label: '268KB',
                           span: '1',
                         },
                       ]}
@@ -266,10 +242,6 @@ export default function ProjectOverview() {
                           label: 'Disk',
                           span: '1',
                         },
-                        {
-                          label: 'Network',
-                          span: '1',
-                        },
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
@@ -289,10 +261,6 @@ export default function ProjectOverview() {
                         },
                         {
                           label: '133KB',
-                          span: '1',
-                        },
-                        {
-                          label: '268KB',
                           span: '1',
                         },
                       ]}
@@ -316,10 +284,6 @@ export default function ProjectOverview() {
                           label: '123KB',
                           span: '1',
                         },
-                        {
-                          label: '255KB',
-                          span: '1',
-                        },
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
@@ -339,10 +303,6 @@ export default function ProjectOverview() {
                         },
                         {
                           label: '133KB',
-                          span: '1',
-                        },
-                        {
-                          label: '268KB',
                           span: '1',
                         },
                       ]}
@@ -366,10 +326,6 @@ export default function ProjectOverview() {
                           label: '123KB',
                           span: '1',
                         },
-                        {
-                          label: '255KB',
-                          span: '1',
-                        },
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
@@ -389,10 +345,6 @@ export default function ProjectOverview() {
                         },
                         {
                           label: '133KB',
-                          span: '1',
-                        },
-                        {
-                          label: '268KB',
                           span: '1',
                         },
                       ]}
