@@ -1,3 +1,4 @@
+// @ts-nocheck
 import resolveConfig from 'tailwindcss/resolveConfig';
 
 export const tailwindConfig = () => {
@@ -28,3 +29,7 @@ export const formatValue = value =>
     maximumSignificantDigits: 3,
     notation: 'compact',
   }).format(value);
+
+export const parseFloat = (number, digits = 2) => {
+  return Number(number).toFixed(digits);
+};

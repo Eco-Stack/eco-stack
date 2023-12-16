@@ -7,8 +7,12 @@ import AnimateFadeIn from 'components/AnimateFadeIn';
 import LineChart from 'components/LineChart';
 import { faker } from '@faker-js/faker/locale/en';
 import SelectButton from 'components/SelectButton';
+import { useHypervisorOverviewQuery } from 'apis/hypervisor';
+import { parseFloat } from '../utils/Utils';
 
 export default function ProjectOverview() {
+  const { data } = useHypervisorOverviewQuery();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateViewOption, setDateViewOption] = useState({
     label: 'WEEK',
@@ -176,13 +180,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
+                  {data?.cpuUsageAverageMetrics.map((metric, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 하이퍼바이저${i + 1}`, span: '2' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${metric.hypervisorName}`, span: '2' },
+                          { label: `${parseFloat(metric.metric, 4)}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -201,13 +205,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
-                    <AnimateFadeIn delay={i} initialDelay={0.05 * 3}>
+                  {data?.memoryUsageAverageMetrics.map((metric, i) => (
+                    <AnimateFadeIn key={`memory-${i}`} delay={i} initialDelay={0.05 * 3}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 하이퍼바이저${i + 1}`, span: '2' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${metric.hypervisorName}`, span: '2' },
+                          { label: `${parseFloat(metric.metric, 4)}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -226,38 +230,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
-                    <AnimateFadeIn delay={i} initialDelay={0.05 * 6}>
+                  {data?.diskUsageAverageMetrics.map((metric, i) => (
+                    <AnimateFadeIn key={`disk-${i}`} delay={i} initialDelay={0.05 * 6}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 하이퍼바이저${i + 1}`, span: '2' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
-                        ]}
-                      />
-                    </AnimateFadeIn>
-                  ))}
-                </div>
-              </RoundedBox>
-
-              {/* TOP 10 Network Usage */}
-              <RoundedBox className="min-w-60 flex-grow-[1] flex flex-col p-4">
-                <h3 className="font-bold text-lg">TOP 10 Network 사용량</h3>
-                <FragmentedRow
-                  className="text-white/40 dark:text-white/40 font-bold pt-2"
-                  datas={[
-                    { label: '하이퍼바이저', span: '1' },
-                    { label: '사용량(%)', span: '1', align: 'right' },
-                  ]}
-                />
-                <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
-                    <AnimateFadeIn delay={i} initialDelay={0.05 * 9}>
-                      <FragmentedRow
-                        className=" leading-5"
-                        datas={[
-                          { label: `${i + 1}. 하이퍼바이저${i + 1}`, span: '2' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${metric.hypervisorName}`, span: '2' },
+                          { label: `${parseFloat(metric.metric, 4)}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
