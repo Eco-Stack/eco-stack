@@ -8,10 +8,12 @@ import LineChart from 'components/LineChart';
 import { faker } from '@faker-js/faker/locale/en';
 import SelectButton from 'components/SelectButton';
 import { useHypervisorOverviewQuery } from 'apis/hypervisor';
-import { parseFloat } from '../utils/Utils';
+import { lengthedArray, parseFloat } from '../utils/Utils';
+import { useCloudProjectOverviewQuery } from 'apis/cloudProject';
 
 export default function ProjectOverview() {
-  const { data } = useHypervisorOverviewQuery();
+  const { data: cloudProjectOverviewData } = useCloudProjectOverviewQuery();
+  const { data: hypervisorOverviewData } = useHypervisorOverviewQuery();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateViewOption, setDateViewOption] = useState({
@@ -61,13 +63,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
+                  {lengthedArray(cloudProjectOverviewData?.mostInstanceCntProject).map((project, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '1' },
+                          { label: `${project?.value ?? '-'}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -88,13 +90,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
-                    <AnimateFadeIn delay={i} initialDelay={0.05 * 3}>
+                  {lengthedArray(cloudProjectOverviewData?.mostInstanceIncreaseProject).map((project, i) => (
+                    <AnimateFadeIn delay={i}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '1' },
+                          { label: `${project?.value ?? '-'}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -115,13 +117,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
-                    <AnimateFadeIn delay={i} initialDelay={0.05 * 6}>
+                  {lengthedArray(cloudProjectOverviewData?.mostInstanceDecreaseProject).map((project, i) => (
+                    <AnimateFadeIn delay={i}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '1' },
-                          { label: `${30 - i}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '1' },
+                          { label: `${project?.value ?? '-'}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -142,15 +144,15 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {new Array(10).fill(0).map((_, i) => (
-                    <AnimateFadeIn delay={i} initialDelay={0.05 * 9}>
+                  {lengthedArray(cloudProjectOverviewData?.mostResourceUsingProject).map((project, i) => (
+                    <AnimateFadeIn delay={i}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. 프로젝트${i + 1}`, span: '3' },
-                          { label: `${30 - i}`, span: '2', align: 'right' },
-                          { label: `${30 - i}`, span: '2', align: 'right' },
-                          { label: `${30 - i}`, span: '2', align: 'right' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '3' },
+                          { label: `${project?.cpuUtilization ?? '-'}`, span: '2', align: 'right' },
+                          { label: `${project?.memoryUtilization ?? '-'}`, span: '2', align: 'right' },
+                          { label: `${project?.cloudInstanceCnt ?? '-'}`, span: '2', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -180,13 +182,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {data?.cpuUsageAverageMetrics.map((metric, i) => (
+                  {lengthedArray(hypervisorOverviewData?.cpuUsageAverageMetrics).map((metric, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. ${metric.hypervisorName}`, span: '2' },
-                          { label: `${parseFloat(metric.metric, 4)}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${metric?.hypervisorName ?? '-'}`, span: '2' },
+                          { label: `${parseFloat(metric?.metric ?? '-', 4)}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -205,13 +207,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {data?.memoryUsageAverageMetrics.map((metric, i) => (
+                  {lengthedArray(hypervisorOverviewData?.memoryUsageAverageMetrics).map((metric, i) => (
                     <AnimateFadeIn key={`memory-${i}`} delay={i} initialDelay={0.05 * 3}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. ${metric.hypervisorName}`, span: '2' },
-                          { label: `${parseFloat(metric.metric, 4)}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${metric?.hypervisorName ?? '-'}`, span: '2' },
+                          { label: `${parseFloat(metric?.metric ?? '-', 4)}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
@@ -230,13 +232,13 @@ export default function ProjectOverview() {
                   ]}
                 />
                 <div className="flex flex-col">
-                  {data?.diskUsageAverageMetrics.map((metric, i) => (
+                  {lengthedArray(hypervisorOverviewData?.diskUsageAverageMetrics).map((metric, i) => (
                     <AnimateFadeIn key={`disk-${i}`} delay={i} initialDelay={0.05 * 6}>
                       <FragmentedRow
                         className=" leading-5"
                         datas={[
-                          { label: `${i + 1}. ${metric.hypervisorName}`, span: '2' },
-                          { label: `${parseFloat(metric.metric, 4)}`, span: '1', align: 'right' },
+                          { label: `${i + 1}. ${metric?.hypervisorName ?? '-'}`, span: '2' },
+                          { label: `${parseFloat(metric?.metric ?? '-', 4)}`, span: '1', align: 'right' },
                         ]}
                       />
                     </AnimateFadeIn>
