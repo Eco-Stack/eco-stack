@@ -1,3 +1,4 @@
+import { useSignupMutation } from 'apis/user';
 import lottieIconEco from 'assets/lottie_icon_eco.json';
 import clsx from 'clsx';
 import Input from 'components/Input';
@@ -24,6 +25,8 @@ export default function Signup() {
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
+  const { isPending, isSuccess, isError, mutate } = useSignupMutation();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -35,8 +38,14 @@ export default function Signup() {
       setError("Password confirm doesn't match");
       return;
     }
-    // navigate(ROUTES.projectOverview);
-    // navigate(ROUTES.cloudOverview);
+
+    mutate(
+      {},
+      {
+        onSuccess: () => navigate(ROUTES.projectOverview),
+        onError: () => setError('Error while signing up'),
+      },
+    );
   };
 
   return (
@@ -106,7 +115,7 @@ export default function Signup() {
         <Input
           className="rounded !bg-green-400 font-bold !text-black h-10 cursor-pointer hover:brightness-95"
           type="submit"
-          value="Sign up"
+          value={`Sign up ${isPending ? '...' : ''} ${isError ? 'Failed!' : ''} ${isSuccess ? 'Success!' : ''}`}
         ></Input>
 
         {/* error */}

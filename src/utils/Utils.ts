@@ -31,7 +31,7 @@ export const formatValue = value =>
   }).format(value);
 
 export const parseFloat = (number, digits = 2) => {
-  if (!Number.isInteger(number)) return number;
+  if (Number.isNaN(Number(number))) return number;
 
   return Number(number).toFixed(digits);
 };

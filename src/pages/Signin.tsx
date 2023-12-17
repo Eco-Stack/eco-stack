@@ -1,4 +1,6 @@
+import { useSigninMutation } from 'apis/user';
 import lottieIconEco from 'assets/lottie_icon_eco.json';
+import clsx from 'clsx';
 import Input from 'components/Input';
 import Lottie from 'lottie-react';
 import { useNavigate } from 'react-router-dom';
@@ -6,9 +8,17 @@ import { ROUTES } from 'router';
 
 export default function Signin() {
   const navigate = useNavigate();
+  const { isPending, isSuccess, isError, error, mutate: login } = useSigninMutation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    login(
+      {},
+      {
+        onSuccess: () => navigate(ROUTES.cloudOverview),
+      },
+    );
 
     // navigate(ROUTES.projectOverview);
     // navigate(ROUTES.cloudOverview);
@@ -41,8 +51,18 @@ export default function Signin() {
         <Input
           className="rounded !bg-green-400 font-bold !text-black h-10 cursor-pointer hover:brightness-95"
           type="submit"
-          value="Login"
+          value={`Login ${isSuccess ? 'Success!' : ''} ${isError ? 'Failed!' : ''} ${isPending ? '...' : ''}`}
         ></Input>
+
+        {/* error */}
+        <div
+          className={clsx([
+            'text-red-500 w-full h-auto break-words font-bold transition-all',
+            isError ? 'opacity-100' : 'opacity-0',
+          ])}
+        >
+          {error?.message}
+        </div>
       </form>
     </div>
   );
