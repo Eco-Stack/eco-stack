@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import LineChart from '../components/LineChart';
@@ -8,6 +8,7 @@ import RoundedBox from '../components/RoundedBox';
 import SelectButton from '../components/SelectButton';
 import { useSearchParams } from 'react-router-dom';
 import { useProjectDetailQuery, useProjectOverviewQuery } from 'apis/cloudProject';
+import { useCloudInstanceQuery } from 'apis/cloudInstance';
 import clsx from 'clsx';
 import { lengthedArray, parseFloat } from 'utils/Utils';
 
@@ -15,18 +16,36 @@ export default function ProjectOverview() {
   const [searchParams] = useSearchParams();
   const projectId = useMemo(() => searchParams.get('id') ?? '-1', [searchParams]);
 
-  const { data: projectOverview } = useProjectOverviewQuery({ projectId });
+  const { data: projectOverview, isFetched } = useProjectOverviewQuery({ projectId });
   const { data: projectDetail } = useProjectDetailQuery({ projectId });
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateViewOption, setDateViewOption] = useState({
-    label: 'WEEK',
-    value: '7',
+    label: 'DAY',
+    value: '1',
   });
-  const [projectViewOption, setProjectViewOption] = useState({
-    label: 'Instance1',
-    value: 'instance1',
-  });
+
+  const instanceOptions = useMemo(
+    () =>
+      projectOverview?.resourceIntensiveCloudInstances
+        .map(instance => ({
+          label: instance.id,
+          value: instance.id,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)) ?? [],
+    [projectOverview],
+  );
+  const [projectViewOption, setProjectViewOption] = useState(instanceOptions[0]);
+
+  const { data: cloudInstanceData } = useCloudInstanceQuery(
+    {
+      cloudInstanceId: projectViewOption?.value ?? '-',
+      days: (+dateViewOption.value * 2).toString(),
+    },
+    !!projectViewOption && isFetched,
+  );
+
+  useEffect(() => setProjectViewOption(instanceOptions[0]), [instanceOptions]);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -120,15 +139,15 @@ export default function ProjectOverview() {
                           span: '1',
                         },
                         {
-                          label: 'CPU',
+                          label: 'CPU(%)',
                           span: '1',
                         },
                         {
-                          label: 'Memory',
+                          label: 'Memory(%)',
                           span: '1',
                         },
                         {
-                          label: 'Disk',
+                          label: 'Disk(%)',
                           span: '1',
                         },
                       ]}
@@ -143,7 +162,7 @@ export default function ProjectOverview() {
                               span: '1',
                             },
                             {
-                              label: parseFloat(instance?.cpuUsage) ?? '-',
+                              label: parseFloat(instance?.cpuUsage, 4) ?? '-',
                               span: '1',
                             },
                             {
@@ -168,15 +187,15 @@ export default function ProjectOverview() {
                           span: '1',
                         },
                         {
-                          label: 'CPU',
+                          label: 'CPU(%)',
                           span: '1',
                         },
                         {
-                          label: 'Memory',
+                          label: 'Memory(%)',
                           span: '1',
                         },
                         {
-                          label: 'Disk',
+                          label: 'Disk(%)',
                           span: '1',
                         },
                       ]}
@@ -215,20 +234,7 @@ export default function ProjectOverview() {
               <SelectButton
                 currentOption={projectViewOption}
                 setOption={option => setProjectViewOption(option)}
-                options={[
-                  {
-                    label: 'Instance1',
-                    value: 'instance1',
-                  },
-                  {
-                    label: 'Instance2',
-                    value: 'instance2',
-                  },
-                  {
-                    label: 'Instance3',
-                    value: 'instance3',
-                  },
-                ]}
+                options={instanceOptions}
               />
               <SelectButton
                 options={[
@@ -252,93 +258,106 @@ export default function ProjectOverview() {
 
             {/* Charts */}
             <div className="grid w-full grid-cols-2 gap-5">
+              {/* CPU Usage */}
               <div className="col-span-1 flex">
                 <LineChart
                   title={'CPU Usage (%)'}
                   labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
+                    ...new Array(24)
+                      .fill(0)
+                      .map((_, i) => [(i + 1).toString(), (i + 25).toString()] as [string, string]),
                   ]}
                   datas={[
                     {
                       label: 'CPU Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data:
+                        cloudInstanceData?.cpuUtilizationMetricValues
+                          .toReversed()
+                          .slice(0, Number(dateViewOption.value))
+                          .map(e => e?.metricValuesDto)
+                          .flat()
+                          .map(e => e?.value ?? 0) ?? [],
                     },
                     {
                       label: 'CPU Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data:
+                        cloudInstanceData?.cpuUtilizationMetricValues
+                          .toReversed()
+                          .slice(Number(dateViewOption.value))
+                          .map(e => e?.metricValuesDto)
+                          .flat()
+                          .map(e => e?.value ?? 0) ?? [],
                     },
                   ]}
                 />
               </div>
+
+              {/* Memory usage */}
               <div className="col-span-1">
                 <LineChart
                   title={'Memory Usage (%)'}
                   labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
+                    ...new Array(24)
+                      .fill(0)
+                      .map((_, i) => [(i + 1).toString(), (i + 25).toString()] as [string, string]),
                   ]}
                   datas={[
                     {
                       label: 'Memory Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data:
+                        cloudInstanceData?.memoryUtilizationMetricValues
+                          .toReversed()
+                          .slice(0, Number(dateViewOption.value))
+                          .map(e => e?.metricValuesDto)
+                          .flat()
+                          .map(e => e?.value ?? 0) ?? [],
                     },
                     {
                       label: 'Memory Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data:
+                        cloudInstanceData?.memoryUtilizationMetricValues
+                          .toReversed()
+                          .slice(Number(dateViewOption.value))
+                          .map(e => e?.metricValuesDto)
+                          .flat()
+                          .map(e => e?.value ?? 0) ?? [],
                     },
                   ]}
                 />
               </div>
-              <div className="col-span-1">
+              {/* <div className="col-span-1">
                 <LineChart
-                  title={'DISK R/W Usage (Bytes)'}
+                  title={'DISK Usage (%)'}
                   labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
+                    ...new Array(24)
+                      .fill(0)
+                      .map((_, i) => [(i + 1).toString(), (i + 25).toString()] as [string, string]),
                   ]}
                   datas={[
                     {
-                      label: 'Current Read',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 50000 })),
-                      color: 'rgb(255, 99, 132)',
-                      hidden: true,
+                      label: 'Disk Current',
+                      data:
+                        lengthedArray(cloudInstanceData?.diskUtilizationMetricValues, 24)
+                          .toReversed()
+                          .slice(0, Number(dateViewOption.value))
+                          .map(e => e?.metricValuesDto)
+                          .flat()
+                          .map(e => e?.value ?? 0) ?? [],
                     },
                     {
-                      label: 'Current Write',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 50000, max: 300000 })),
-                      color: 'rgb(182, 70, 94)',
-                    },
-                    {
-                      label: 'Previous Read',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 50000 })),
-                      color: 'rgb(53, 162, 235)',
-                      hidden: true,
-                    },
-                    {
-                      label: 'Previous Write',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 50000, max: 300000 })),
-                      color: 'rgb(41, 117, 168)',
+                      label: 'Disk Previous',
+                      data:
+                        lengthedArray(cloudInstanceData?.diskUtilizationMetricValues, 24)
+                          .toReversed()
+                          .slice(Number(dateViewOption.value))
+                          .map(e => e?.metricValuesDto)
+                          .flat()
+                          .map(e => e?.value ?? 0) ?? [],
                     },
                   ]}
                 />
-              </div>
-              <div className="col-span-1">
+              </div> */}
+              {/* <div className="col-span-1">
                 <LineChart
                   title={'Network Usage (bps)'}
                   labels={[
@@ -361,7 +380,7 @@ export default function ProjectOverview() {
                     },
                   ]}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
 

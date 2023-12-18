@@ -5,7 +5,6 @@ import RoundedBox from 'components/RoundedBox';
 import FragmentedRow from 'components/FragmentedRow';
 import AnimateFadeIn from 'components/AnimateFadeIn';
 import LineChart from 'components/LineChart';
-import { faker } from '@faker-js/faker/locale/en';
 import SelectButton from 'components/SelectButton';
 import { useHypervisorMetricQuery, useHypervisorOverviewQuery } from 'apis/hypervisor';
 import { lengthedArray, parseFloat } from '../utils/Utils';
@@ -41,22 +40,6 @@ export default function CloudOverview() {
   );
 
   useEffect(() => setHypervisorViewOption(hypervisorOptions[0]), [hypervisorOptions]);
-
-  // console.log(
-  //   'check',
-  //   hypervisorMetricData?.cpuUtilizationMetricValues
-  //     .reverse()
-  //     .slice(Number(dateViewOption.value))
-  //     .map(e => e.metricValuesDto)
-  //     .flat()
-  //     .map(e => e.value) ?? [],
-  //   hypervisorMetricData?.cpuUtilizationMetricValues
-  //     .reverse()
-  //     .slice(0, Number(dateViewOption.value))
-  //     .map(e => e.metricValuesDto)
-  //     .flat()
-  //     .map(e => e.value) ?? [],
-  // );
 
   return (
     <div className="flex h-screen overflow-hidden">

@@ -42,7 +42,7 @@ export default function Signup() {
     mutate(
       {},
       {
-        onSuccess: () => navigate(ROUTES.projectOverview),
+        onSuccess: () => navigate(ROUTES.signin),
         onError: () => setError('Error while signing up'),
       },
     );

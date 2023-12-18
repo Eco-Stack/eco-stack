@@ -5,13 +5,23 @@ const KEYS = {
   cloudInstance: ['cloud', 'instance'],
 };
 
-export const useCloudInstanceQuery = ({ cloudInstanceId }: { cloudInstanceId: number }) => {
+export const useCloudInstanceQuery = (
+  {
+    cloudInstanceId,
+    days,
+  }: {
+    cloudInstanceId: string;
+    days: string;
+  },
+  enabled: boolean,
+) => {
   return useQuery<InstanceMetric>({
-    queryKey: KEYS.cloudInstance,
+    queryKey: [...KEYS.cloudInstance, cloudInstanceId, days],
     queryFn: async () => {
-      const reponse = await client.get(`/v1/cloud-instances/${cloudInstanceId}`);
+      const reponse = await client.get(`/v1/cloud-instances/${cloudInstanceId}?days=${days}`);
       return reponse.data;
     },
+    enabled: enabled,
   });
 };
 
