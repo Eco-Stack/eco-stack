@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import RoundedBox from 'components/RoundedBox';
@@ -7,23 +7,56 @@ import AnimateFadeIn from 'components/AnimateFadeIn';
 import LineChart from 'components/LineChart';
 import { faker } from '@faker-js/faker/locale/en';
 import SelectButton from 'components/SelectButton';
-import { useHypervisorOverviewQuery } from 'apis/hypervisor';
+import { useHypervisorMetricQuery, useHypervisorOverviewQuery } from 'apis/hypervisor';
 import { lengthedArray, parseFloat } from '../utils/Utils';
 import { useCloudProjectOverviewQuery } from 'apis/cloudProject';
+import { ROUTES } from 'router';
+import { useNavigate } from 'react-router-dom';
 
-export default function ProjectOverview() {
+export default function CloudOverview() {
+  const navigate = useNavigate();
+
   const { data: cloudProjectOverviewData } = useCloudProjectOverviewQuery();
-  const { data: hypervisorOverviewData } = useHypervisorOverviewQuery();
-
+  const { data: hypervisorOverviewData, isFetched } = useHypervisorOverviewQuery();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateViewOption, setDateViewOption] = useState({
-    label: 'WEEK',
-    value: '7',
+    label: 'DAY',
+    value: '1',
   });
-  const [hypervisorViewOption, setHypervisorViewOption] = useState({
-    label: 'Hypervisor1',
-    value: 'hypervisor1',
-  });
+
+  const hypervisorOptions = useMemo(() => {
+    return (
+      hypervisorOverviewData?.cpuUsageAverageMetrics
+        .map(metric => ({
+          label: metric?.hypervisorName,
+          value: metric?.id,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)) ?? []
+    );
+  }, [hypervisorOverviewData]);
+  const [hypervisorViewOption, setHypervisorViewOption] = useState(hypervisorOptions[0]);
+  const { data: hypervisorMetricData } = useHypervisorMetricQuery(
+    { hypervisorId: hypervisorViewOption?.value ?? '-', days: (+dateViewOption.value * 2).toString() },
+    !!hypervisorViewOption && isFetched,
+  );
+
+  useEffect(() => setHypervisorViewOption(hypervisorOptions[0]), [hypervisorOptions]);
+
+  // console.log(
+  //   'check',
+  //   hypervisorMetricData?.cpuUtilizationMetricValues
+  //     .reverse()
+  //     .slice(Number(dateViewOption.value))
+  //     .map(e => e.metricValuesDto)
+  //     .flat()
+  //     .map(e => e.value) ?? [],
+  //   hypervisorMetricData?.cpuUtilizationMetricValues
+  //     .reverse()
+  //     .slice(0, Number(dateViewOption.value))
+  //     .map(e => e.metricValuesDto)
+  //     .flat()
+  //     .map(e => e.value) ?? [],
+  // );
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -41,14 +74,14 @@ export default function ProjectOverview() {
             {/* 클라우드 개요 */}
             <div className="flex justify-between">
               <h1 className="text-xl font-bold text-gray-300">Cloud Informations</h1>
-              <SelectButton
+              {/* <SelectButton
                 currentOption={{ label: 'Project Browse', value: 'Project Browse' }}
                 options={[
                   { label: 'Project1', value: 'project1' },
                   { label: 'Project2', value: 'project2' },
                   { label: 'Project3', value: 'project3' },
                 ]}
-              />
+              /> */}
             </div>
             <div className="my-3"></div>
             <div className="flex flex-col xl:flex-row gap-3">
@@ -66,9 +99,11 @@ export default function ProjectOverview() {
                   {lengthedArray(cloudProjectOverviewData?.mostInstanceCntProject).map((project, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
-                        className=" leading-5"
+                        underline
+                        onClick={() => navigate(ROUTES.projectOverview + `?id=${project?.id}`)}
+                        className=" leading-5 cursor-pointer"
                         datas={[
-                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '1' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '9' },
                           { label: `${project?.value ?? '-'}`, span: '1', align: 'right' },
                         ]}
                       />
@@ -93,9 +128,11 @@ export default function ProjectOverview() {
                   {lengthedArray(cloudProjectOverviewData?.mostInstanceIncreaseProject).map((project, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
-                        className=" leading-5"
+                        underline
+                        onClick={() => navigate(ROUTES.projectOverview + `?id=${project?.id}`)}
+                        className=" leading-5 cursor-pointer"
                         datas={[
-                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '1' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '9' },
                           { label: `${project?.value ?? '-'}`, span: '1', align: 'right' },
                         ]}
                       />
@@ -120,9 +157,11 @@ export default function ProjectOverview() {
                   {lengthedArray(cloudProjectOverviewData?.mostInstanceDecreaseProject).map((project, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
-                        className=" leading-5"
+                        underline
+                        onClick={() => navigate(ROUTES.projectOverview + `?id=${project?.id}`)}
+                        className=" leading-5 cursor-pointer"
                         datas={[
-                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '1' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '9' },
                           { label: `${project?.value ?? '-'}`, span: '1', align: 'right' },
                         ]}
                       />
@@ -137,7 +176,7 @@ export default function ProjectOverview() {
                 <FragmentedRow
                   className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
-                    { label: '프로젝트명', span: '3' },
+                    { label: '프로젝트명', span: '4' },
                     { label: 'CPU', span: '2', align: 'right' },
                     { label: '메모리', span: '2', align: 'right' },
                     { label: '인스턴스', span: '2', align: 'right' },
@@ -147,11 +186,13 @@ export default function ProjectOverview() {
                   {lengthedArray(cloudProjectOverviewData?.mostResourceUsingProject).map((project, i) => (
                     <AnimateFadeIn delay={i}>
                       <FragmentedRow
-                        className=" leading-5"
+                        underline
+                        onClick={() => navigate(ROUTES.projectOverview + `?id=${project?.id}`)}
+                        className=" leading-5 cursor-pointer"
                         datas={[
-                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '3' },
-                          { label: `${project?.cpuUtilization ?? '-'}`, span: '2', align: 'right' },
-                          { label: `${project?.memoryUtilization ?? '-'}`, span: '2', align: 'right' },
+                          { label: `${i + 1}. ${project?.name ?? '-'}`, span: '4' },
+                          { label: `${parseFloat(project?.cpuUtilization, 2) ?? '-'}`, span: '2', align: 'right' },
+                          { label: `${parseFloat(project?.memoryUtilization, 2) ?? '-'}`, span: '2', align: 'right' },
                           { label: `${project?.cloudInstanceCnt ?? '-'}`, span: '2', align: 'right' },
                         ]}
                       />
@@ -183,9 +224,13 @@ export default function ProjectOverview() {
                 />
                 <div className="flex flex-col">
                   {lengthedArray(hypervisorOverviewData?.cpuUsageAverageMetrics).map((metric, i) => (
-                    <AnimateFadeIn delay={i}>
+                    <AnimateFadeIn key={`cpu-${i}`} delay={i}>
                       <FragmentedRow
-                        className=" leading-5"
+                        onClick={() =>
+                          setHypervisorViewOption({ label: metric?.hypervisorName ?? '-', value: metric?.id ?? '-' })
+                        }
+                        underline
+                        className=" leading-5 cursor-pointer"
                         datas={[
                           { label: `${i + 1}. ${metric?.hypervisorName ?? '-'}`, span: '2' },
                           { label: `${parseFloat(metric?.metric ?? '-', 4)}`, span: '1', align: 'right' },
@@ -210,7 +255,11 @@ export default function ProjectOverview() {
                   {lengthedArray(hypervisorOverviewData?.memoryUsageAverageMetrics).map((metric, i) => (
                     <AnimateFadeIn key={`memory-${i}`} delay={i} initialDelay={0.05 * 3}>
                       <FragmentedRow
-                        className=" leading-5"
+                        onClick={() =>
+                          setHypervisorViewOption({ label: metric?.hypervisorName ?? '-', value: metric?.id ?? '-' })
+                        }
+                        underline
+                        className=" leading-5 cursor-pointer"
                         datas={[
                           { label: `${i + 1}. ${metric?.hypervisorName ?? '-'}`, span: '2' },
                           { label: `${parseFloat(metric?.metric ?? '-', 4)}`, span: '1', align: 'right' },
@@ -235,7 +284,11 @@ export default function ProjectOverview() {
                   {lengthedArray(hypervisorOverviewData?.diskUsageAverageMetrics).map((metric, i) => (
                     <AnimateFadeIn key={`disk-${i}`} delay={i} initialDelay={0.05 * 6}>
                       <FragmentedRow
-                        className=" leading-5"
+                        onClick={() =>
+                          setHypervisorViewOption({ label: metric?.hypervisorName ?? '-', value: metric?.id ?? '-' })
+                        }
+                        underline
+                        className=" leading-5 cursor-pointer"
                         datas={[
                           { label: `${i + 1}. ${metric?.hypervisorName ?? '-'}`, span: '2' },
                           { label: `${parseFloat(metric?.metric ?? '-', 4)}`, span: '1', align: 'right' },
@@ -252,20 +305,7 @@ export default function ProjectOverview() {
             {/* Select Buttons */}
             <div className="flex w-full justify-between text-black">
               <SelectButton
-                options={[
-                  {
-                    label: 'Hypervisor1',
-                    value: 'hypervisor1',
-                  },
-                  {
-                    label: 'Hypervisor2',
-                    value: 'hypervisor2',
-                  },
-                  {
-                    label: 'Hypervisor3',
-                    value: 'hypervisor3',
-                  },
-                ]}
+                options={hypervisorOptions}
                 currentOption={hypervisorViewOption}
                 setOption={option => setHypervisorViewOption(option)}
               />
@@ -291,55 +331,68 @@ export default function ProjectOverview() {
 
             {/* Charts */}
             <div className="grid w-full  lg:grid-cols-2 grid-cols-1 gap-5">
+              {/* CPU Chart */}
               <div className="col-span-1 flex justify-center">
                 <LineChart
                   title={'CPU Usage (%)'}
-                  labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
-                  ]}
+                  labels={[...new Array(24).fill(0).map((e, i) => [i + 1, i + 25])]}
                   datas={[
                     {
                       label: 'CPU Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data:
+                        hypervisorMetricData?.cpuUtilizationMetricValues
+                          .toReversed()
+                          .slice(0, Number(dateViewOption.value))
+                          .map(e => e.metricValuesDto)
+                          .flat()
+                          .map(e => e.value) ?? [],
                     },
                     {
                       label: 'CPU Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data:
+                        hypervisorMetricData?.cpuUtilizationMetricValues
+                          .toReversed()
+                          .slice(Number(dateViewOption.value))
+                          .map(e => e.metricValuesDto)
+                          .flat()
+                          .map(e => e.value) ?? [],
                     },
                   ]}
                 />
               </div>
+
+              {/* Memory Chart */}
               <div className="col-span-1 flex justify-center">
                 <LineChart
                   title={'Memory Usage (%)'}
-                  labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
-                  ]}
+                  labels={[...new Array(24).fill(0).map((e, i) => [(i + 1).toString(), (i + 25).toString()])]}
                   datas={[
                     {
-                      label: 'Memory Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      label: 'CPU Current',
+                      data:
+                        hypervisorMetricData?.memoryUtilizationMetricValues
+                          .toReversed()
+                          .slice(0, Number(dateViewOption.value))
+                          .map(e => e.metricValuesDto)
+                          .flat()
+                          .map(e => e.value) ?? [],
                     },
                     {
-                      label: 'Memory Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      label: 'CPU Previous',
+                      data:
+                        hypervisorMetricData?.memoryUtilizationMetricValues
+                          .toReversed()
+                          .slice(Number(dateViewOption.value))
+                          .map(e => e.metricValuesDto)
+                          .flat()
+                          .map(e => e.value) ?? [],
                     },
                   ]}
                 />
               </div>
-              <div className="col-span-1 flex justify-center">
+
+              {/* Disk Chart */}
+              {/* <div className="col-span-1 flex justify-center">
                 <LineChart
                   title={'DISK R/W Usage (Bytes)'}
                   labels={[
@@ -376,8 +429,10 @@ export default function ProjectOverview() {
                     },
                   ]}
                 />
-              </div>
-              <div className="col-span-1 flex justify-center">
+              </div> */}
+
+              {/* Network Chart */}
+              {/* <div className="col-span-1 flex justify-center">
                 <LineChart
                   title={'Network Usage (bps)'}
                   labels={[
@@ -400,7 +455,7 @@ export default function ProjectOverview() {
                     },
                   ]}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </main>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { applyOpacity } from './utils';
 import {
   Chart as ChartJS,
@@ -24,7 +23,7 @@ interface LineChartProps {
 export default function LineChart({ title, labels, datas, options = {} }: LineChartProps) {
   if (labels.length !== datas[0].data.length) {
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="flex h-full w-full flex-col items-center justify-center p-5">
         <p className="text-center font-bold">Unable to render chart '{title}'</p>
         <p className="text-center">Data length and label length are not equal.</p>
       </div>

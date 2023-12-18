@@ -17,7 +17,7 @@ export const useCloudProjectOverviewQuery = () => {
   });
 };
 
-export const useProjectOverviewQuery = ({ projectId }: { projectId: number }) => {
+export const useProjectOverviewQuery = ({ projectId }: { projectId: string }) => {
   return useQuery<InstanceData>({
     queryKey: KEYS.projectOverview,
     queryFn: async () => {
@@ -27,7 +27,7 @@ export const useProjectOverviewQuery = ({ projectId }: { projectId: number }) =>
   });
 };
 
-export const useProjectDetailQuery = ({ projectId }: { projectId: number }) => {
+export const useProjectDetailQuery = ({ projectId }: { projectId: string }) => {
   return useQuery<ProjectDetail>({
     queryKey: KEYS.projectDetail,
     queryFn: async () => {

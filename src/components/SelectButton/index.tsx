@@ -20,7 +20,7 @@ export default function SelectButton({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative h-auto w-44 text-gray-300 font-bold">
+    <div className="relative h-auto min-w-44 text-gray-300 font-bold">
       <input
         type="button"
         value={`${currentOption.label} ${open ? '▲' : '▼'}`}

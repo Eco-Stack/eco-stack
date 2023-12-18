@@ -6,13 +6,17 @@ const KEYS = {
   hypervisorOverview: ['hypervisor', 'overview'],
 };
 
-export const useHypervisorMetricQuery = ({ hypervisorId }: { hypervisorId: number }) => {
-  return useQuery({
-    queryKey: KEYS.hypervisorMetrics,
+export const useHypervisorMetricQuery = (
+  { hypervisorId, days }: { hypervisorId: string; days: string },
+  enabled: boolean,
+) => {
+  return useQuery<HypervisorMetrics>({
+    queryKey: [...KEYS.hypervisorMetrics, hypervisorId, days],
     queryFn: async () => {
-      const reponse = await client.get(`/v1/hypervisors/${hypervisorId}`);
+      const reponse = await client.get(`/v1/hypervisors/${hypervisorId}?days=${days}`);
       return reponse.data;
     },
+    enabled: enabled,
   });
 };
 
@@ -42,4 +46,18 @@ type Metrics = {
   cpuUsageAverageMetrics: Metric[];
   memoryUsageAverageMetrics: Metric[];
   diskUsageAverageMetrics: Metric[];
+};
+
+type MetricValue = {
+  dateTime: string;
+  value: number;
+};
+
+type MetricValuesDto = {
+  metricValuesDto: MetricValue[];
+};
+
+type HypervisorMetrics = {
+  cpuUtilizationMetricValues: MetricValuesDto[];
+  memoryUtilizationMetricValues: MetricValuesDto[];
 };

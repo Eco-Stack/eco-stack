@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import LineChart from '../components/LineChart';
@@ -6,12 +6,17 @@ import { faker } from '@faker-js/faker';
 import FragmentedRow from '../components/FragmentedRow';
 import RoundedBox from '../components/RoundedBox';
 import SelectButton from '../components/SelectButton';
-import { useTestQuery } from 'apis/test';
+import { useSearchParams } from 'react-router-dom';
+import { useProjectDetailQuery, useProjectOverviewQuery } from 'apis/cloudProject';
+import clsx from 'clsx';
+import { lengthedArray, parseFloat } from 'utils/Utils';
 
 export default function ProjectOverview() {
-  const { data } = useTestQuery();
+  const [searchParams] = useSearchParams();
+  const projectId = useMemo(() => searchParams.get('id') ?? '-1', [searchParams]);
 
-  console.log('data', data);
+  const { data: projectOverview } = useProjectOverviewQuery({ projectId });
+  const { data: projectDetail } = useProjectDetailQuery({ projectId });
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateViewOption, setDateViewOption] = useState({
@@ -59,19 +64,19 @@ export default function ProjectOverview() {
               className="mb-3 text-xl font-semibold text-gray-200"
               datas={[
                 {
-                  label: 'PROJECT 0001',
+                  label: projectDetail?.id ?? '-',
                   span: '1',
                 },
                 {
-                  label: '8',
+                  label: projectDetail?.instanceCnt.toString() ?? '-',
                   span: '1',
                 },
                 {
-                  label: '2023.11.14',
+                  label: projectDetail?.createdDate ?? '-',
                   span: '1',
                 },
                 {
-                  label: 'Hayden Hong',
+                  label: projectDetail?.owner ?? '-',
                   span: '1',
                 },
               ]}
@@ -86,10 +91,17 @@ export default function ProjectOverview() {
                   <>
                     <p>Instance Status</p>
                     <div className="flex h-full justify-center gap-3 text-center">
-                      <span className="text-[4rem] font-bold">3</span>
+                      <span className="text-[4rem] font-bold">{projectOverview?.instanceCnt ?? 0}</span>
                       <span className="absolute right-5 top-[50%]">
-                        <span className="font-bold text-red-500">▲</span>
-                        <span>2</span>
+                        <span
+                          className={clsx([
+                            'font-bold',
+                            (projectOverview?.instanceDiff ?? 0) >= 0 ? 'text-red-500' : 'text-blue-400',
+                          ])}
+                        >
+                          {(projectOverview?.instanceDiff ?? 0) >= 0 ? '▲' : '▼'}
+                        </span>
+                        <span>{projectOverview?.instanceDiff ?? 0}</span>
                       </span>
                     </div>
                   </>
@@ -121,115 +133,35 @@ export default function ProjectOverview() {
                         },
                       ]}
                     ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '1. Instance1',
-                          span: '1',
-                        },
-                        {
-                          label: '40%',
-                          span: '1',
-                        },
-                        {
-                          label: '73%',
-                          span: '1',
-                        },
-                        {
-                          label: '456KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '2. Instance2',
-                          span: '1',
-                        },
-                        {
-                          label: '35%',
-                          span: '1',
-                        },
-                        {
-                          label: '72%',
-                          span: '1',
-                        },
-                        {
-                          label: '356KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '3. Instance3',
-                          span: '1',
-                        },
-                        {
-                          label: '33%',
-                          span: '1',
-                        },
-                        {
-                          label: '69%',
-                          span: '1',
-                        },
-                        {
-                          label: '346KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '4. Instance4',
-                          span: '1',
-                        },
-                        {
-                          label: '25%',
-                          span: '1',
-                        },
-                        {
-                          label: '68%',
-                          span: '1',
-                        },
-                        {
-                          label: '123KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '5. Instance5',
-                          span: '1',
-                        },
-                        {
-                          label: '21%',
-                          span: '1',
-                        },
-                        {
-                          label: '55%',
-                          span: '1',
-                        },
-                        {
-                          label: '133KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
+                    {lengthedArray(projectOverview?.resourceIntensiveCloudInstances.slice(0, 5), 5).map(
+                      (instance, i) => (
+                        <FragmentedRow
+                          className=""
+                          datas={[
+                            {
+                              label: `${i + 1}. ${instance?.id ?? '-'}`,
+                              span: '1',
+                            },
+                            {
+                              label: parseFloat(instance?.cpuUsage) ?? '-',
+                              span: '1',
+                            },
+                            {
+                              label: parseFloat(instance?.memoryUsageInBytes) ?? '-',
+                              span: '1',
+                            },
+                            {
+                              label: parseFloat(instance?.diskUsage) ?? '-',
+                              span: '1',
+                            },
+                          ]}
+                        ></FragmentedRow>
+                      ),
+                    )}
                   </div>
-                  <div className="flex w-full flex-col ">
+                  <div className="flex w-full flex-col text-gray-300">
                     <FragmentedRow
-                      className="font-bold text-gray-400"
+                      className=" font-bold text-gray-400"
                       datas={[
                         {
                           label: '',
@@ -249,111 +181,29 @@ export default function ProjectOverview() {
                         },
                       ]}
                     ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '6. Instance6',
-                          span: '1',
-                        },
-                        {
-                          label: '20%',
-                          span: '1',
-                        },
-                        {
-                          label: '54%',
-                          span: '1',
-                        },
-                        {
-                          label: '133KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '7. Instance7',
-                          span: '1',
-                        },
-                        {
-                          label: '18%',
-                          span: '1',
-                        },
-                        {
-                          label: '53%',
-                          span: '1',
-                        },
-                        {
-                          label: '123KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '8. Instance8',
-                          span: '1',
-                        },
-                        {
-                          label: '15%',
-                          span: '1',
-                        },
-                        {
-                          label: '52%',
-                          span: '1',
-                        },
-                        {
-                          label: '133KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '9. Instance9',
-                          span: '1',
-                        },
-                        {
-                          label: '10%',
-                          span: '1',
-                        },
-                        {
-                          label: '51%',
-                          span: '1',
-                        },
-                        {
-                          label: '123KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
-                    <FragmentedRow
-                      className=""
-                      datas={[
-                        {
-                          label: '10. Instance10',
-                          span: '1',
-                        },
-                        {
-                          label: '5%',
-                          span: '1',
-                        },
-                        {
-                          label: '50%',
-                          span: '1',
-                        },
-                        {
-                          label: '133KB',
-                          span: '1',
-                        },
-                      ]}
-                    ></FragmentedRow>
+                    {lengthedArray(projectOverview?.resourceIntensiveCloudInstances.slice(5), 5).map((instance, i) => (
+                      <FragmentedRow
+                        className=""
+                        datas={[
+                          {
+                            label: `${i + 1 + 5}. ${instance?.id ?? '-'}`,
+                            span: '1',
+                          },
+                          {
+                            label: instance?.cpuUsage.toString() ?? '-',
+                            span: '1',
+                          },
+                          {
+                            label: instance?.memoryUsageInBytes.toString() ?? '-',
+                            span: '1',
+                          },
+                          {
+                            label: instance?.diskUsage.toString() ?? '-',
+                            span: '1',
+                          },
+                        ]}
+                      ></FragmentedRow>
+                    ))}
                   </div>
                 </div>
               </RoundedBox>

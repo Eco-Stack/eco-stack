@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ComponentPropsWithoutRef } from 'react';
 
 interface IFragmentedData {
   label: React.ReactElement | string;
@@ -7,19 +8,21 @@ interface IFragmentedData {
   span?: string;
 }
 
-interface IFragmentedRowProps {
+interface IFragmentedRowProps extends ComponentPropsWithoutRef<'div'> {
   datas: IFragmentedData[];
   className?: string;
+  underline?: boolean;
 }
 
-export default function FragmentedRow({ datas = [], className }: IFragmentedRowProps) {
+export default function FragmentedRow({ datas = [], className, underline = false, ...props }: IFragmentedRowProps) {
   const totalSpan = datas.reduce((a, c) => a + Number(c.span ?? 0), 0);
   return (
     <div
+      {...props}
       style={{
         gridTemplateColumns: `repeat(${totalSpan}, minmax(0, ${totalSpan}fr))`,
       }}
-      className={clsx(['grid w-full', className])}
+      className={clsx(['grid w-full group relative', className])}
     >
       {datas.map((data, i) => (
         <div
@@ -37,6 +40,9 @@ export default function FragmentedRow({ datas = [], className }: IFragmentedRowP
           {data.label}
         </div>
       ))}
+      {underline && (
+        <div className="absolute left-0 -bottom-0 w-0 h-[1px] bg-white transition-all group-hover:w-full"></div>
+      )}
     </div>
   );
 }
