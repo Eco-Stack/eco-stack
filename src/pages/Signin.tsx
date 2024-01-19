@@ -43,6 +43,16 @@ export default function Signin() {
           type="submit"
           value="Login"
         ></Input>
+
+        <Input
+          onClick={() => {
+            navigate(ROUTES.cloudOverview);
+            alert('클라우드 유지에 많은 비용이 들어가기 때문에 서버연결 대신 더미데이터를 활용하였습니다.');
+          }}
+          className="rounded !bg-green-800 font-bold !text-white h-10 cursor-pointer hover:brightness-95"
+          type="submit"
+          value={`Demo `}
+        ></Input>
       </form>
     </div>
   );

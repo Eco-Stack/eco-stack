@@ -18,6 +18,36 @@ export default function ProjectOverview() {
     value: 'instance1',
   });
 
+  const xDataLengthByDateViewOptionMap: any = {
+    DAY: 24,
+    WEEK: 7,
+    MONTH: 30,
+  };
+
+  const getDate = (dateViewOption: any) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDate();
+
+    new Array(7)
+      .fill(0)
+      .map((_, i) => [
+        new Date(year, month, day - 7 + i).toLocaleDateString(),
+        new Date(year, month, day - 14 + i).toLocaleDateString(),
+      ]);
+
+    const map: any = {
+      DAY: new Array(24).fill(0).map((_, i) => [1 + i < 10 ? `+${24 - i}H` : `+${24 - i}H`, `+${48 - i}H`]),
+      WEEK: new Array(7).fill(0).map((_, i) => [`+${7 - i}D`, `+${14 - i}D`]),
+      MONTH: new Array(30).fill(0).map((_, i) => [`+${30 - i}D`, `+${60 - i}D`]),
+    };
+
+    const label = dateViewOption.label;
+
+    return map[label];
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -117,7 +147,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance1', value: 'instance1' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '1. Instance1',
@@ -138,7 +170,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance2', value: 'instance2' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '2. Instance2',
@@ -159,7 +193,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance3', value: 'instance3' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '3. Instance3',
@@ -180,7 +216,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      underline
+                      className="cursor-pointer"
+                      onClick={() => setProjectViewOption({ label: 'Instance4', value: 'instance4' })}
                       datas={[
                         {
                           label: '4. Instance4',
@@ -201,7 +239,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance5', value: 'instance5' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '5. Instance5',
@@ -245,7 +285,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance6', value: 'instance6' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '6. Instance6',
@@ -266,7 +308,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance7', value: 'instance7' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '7. Instance7',
@@ -287,7 +331,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      onClick={() => setProjectViewOption({ label: 'Instance8', value: 'instance8' })}
+                      underline
+                      className="cursor-pointer"
                       datas={[
                         {
                           label: '8. Instance8',
@@ -308,7 +354,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      underline
+                      className="cursor-pointer"
+                      onClick={() => setProjectViewOption({ label: 'Instance9', value: 'instance9' })}
                       datas={[
                         {
                           label: '9. Instance9',
@@ -329,7 +377,9 @@ export default function ProjectOverview() {
                       ]}
                     ></FragmentedRow>
                     <FragmentedRow
-                      className=""
+                      underline
+                      className="cursor-pointer"
+                      onClick={() => setProjectViewOption({ label: 'Instance10', value: 'instance10' })}
                       datas={[
                         {
                           label: '10. Instance10',
@@ -360,20 +410,10 @@ export default function ProjectOverview() {
               <SelectButton
                 currentOption={projectViewOption}
                 setOption={option => setProjectViewOption(option)}
-                options={[
-                  {
-                    label: 'Instance1',
-                    value: 'instance1',
-                  },
-                  {
-                    label: 'Instance2',
-                    value: 'instance2',
-                  },
-                  {
-                    label: 'Instance3',
-                    value: 'instance3',
-                  },
-                ]}
+                options={new Array(10).fill(0).map((_, i) => ({
+                  label: `Instance${i + 1}`,
+                  value: `Instance${i + 1}`,
+                }))}
               />
               <SelectButton
                 options={[
@@ -400,23 +440,19 @@ export default function ProjectOverview() {
               <div className="col-span-1 flex">
                 <LineChart
                   title={'CPU Usage (%)'}
-                  labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
-                  ]}
+                  labels={getDate(dateViewOption)}
                   datas={[
                     {
                       label: 'CPU Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 100 })),
                     },
                     {
                       label: 'CPU Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 100 })),
                     },
                   ]}
                 />
@@ -424,23 +460,19 @@ export default function ProjectOverview() {
               <div className="col-span-1">
                 <LineChart
                   title={'Memory Usage (%)'}
-                  labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
-                  ]}
+                  labels={getDate(dateViewOption)}
                   datas={[
                     {
                       label: 'Memory Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 100 })),
                     },
                     {
                       label: 'Memory Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 100 })),
                     },
                   ]}
                 />
@@ -448,36 +480,36 @@ export default function ProjectOverview() {
               <div className="col-span-1">
                 <LineChart
                   title={'DISK R/W Usage (Bytes)'}
-                  labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
-                  ]}
+                  labels={getDate(dateViewOption)}
                   datas={[
                     {
                       label: 'Current Read',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 50000 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 50000 })),
                       color: 'rgb(255, 99, 132)',
                       hidden: true,
                     },
                     {
                       label: 'Current Write',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 50000, max: 300000 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 50000, max: 300000 })),
                       color: 'rgb(182, 70, 94)',
                     },
                     {
                       label: 'Previous Read',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 50000 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 50000 })),
                       color: 'rgb(53, 162, 235)',
                       hidden: true,
                     },
                     {
                       label: 'Previous Write',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 50000, max: 300000 })),
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 50000, max: 300000 })),
                       color: 'rgb(41, 117, 168)',
                     },
                   ]}
@@ -485,24 +517,20 @@ export default function ProjectOverview() {
               </div>
               <div className="col-span-1">
                 <LineChart
-                  title={'Network Usage (bps)'}
-                  labels={[
-                    ['2023-11-10', '2023-11-03'],
-                    ['2023-11-11', '2023-11-04'],
-                    ['2023-11-12', '2023-11-05'],
-                    ['2023-11-13', '2023-11-06'],
-                    ['2023-11-14', '2023-11-07'],
-                    ['2023-11-15', '2023-11-08'],
-                    ['2023-11-16', '2023-11-09'],
-                  ]}
+                  title={'Network Usage (%)'}
+                  labels={getDate(dateViewOption)}
                   datas={[
                     {
-                      label: 'CPU Current',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      label: 'Network Current',
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 100 })),
                     },
                     {
-                      label: 'CPU Previous',
-                      data: new Array(7).fill(0).map(() => faker.number.int({ min: 0, max: 100 })),
+                      label: 'Network Previous',
+                      data: new Array(xDataLengthByDateViewOptionMap[dateViewOption.label])
+                        .fill(0)
+                        .map(() => faker.number.int({ min: 0, max: 100 })),
                     },
                   ]}
                 />
@@ -510,7 +538,7 @@ export default function ProjectOverview() {
             </div>
           </div>
 
-          <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
+          {/* <div className="max-w-9xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
             <div className="my-3 h-[1px] w-full bg-gray-300"></div>
             <h1 className="text-2xl font-bold text-gray-300">Instance Process Overview</h1>
             <div>Please Select Instance You Want To Checkout</div>
@@ -536,7 +564,7 @@ export default function ProjectOverview() {
                 },
               ]}
             />
-          </div>
+          </div> */}
         </main>
       </div>
     </div>

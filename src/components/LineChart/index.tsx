@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
+// ChartJS.defaults.plugins.legend.display = false;
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface LineChartProps {
@@ -48,6 +49,9 @@ export default function LineChart({ title, labels, datas, options = {} }: LineCh
       },
     },
     scales: {
+      // x: {
+      //   display: false,
+      // },
       y: {
         type: 'linear' as const,
         display: true,

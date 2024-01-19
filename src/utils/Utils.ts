@@ -1,3 +1,4 @@
+// @ts-nocheck
 import resolveConfig from 'tailwindcss/resolveConfig';
 
 export const tailwindConfig = () => {
@@ -28,3 +29,24 @@ export const formatValue = value =>
     maximumSignificantDigits: 3,
     notation: 'compact',
   }).format(value);
+
+export const parseFloat = (number, digits = 2) => {
+  if (!Number.isInteger(number)) return number;
+
+  return Number(number).toFixed(digits);
+};
+
+export const lengthedArray = <T>(array: T[] | T, length = 10): (T | null)[] => {
+  if (!Array.isArray(array)) {
+    return [array].concat(new Array(length - 1).fill(null));
+  }
+
+  const arrLen = array.length;
+  if (arrLen >= length) {
+    return array.splice(0, 10);
+  } else {
+    const insuff = length - arrLen;
+    const newArr = new Array(insuff).fill(null);
+    return array.concat(newArr);
+  }
+};
