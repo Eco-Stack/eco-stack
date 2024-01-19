@@ -156,7 +156,7 @@ export default function ProjectOverview() {
                   className="text-white/40 dark:text-white/40 font-bold pt-2"
                   datas={[
                     { label: '프로젝트명', span: '1' },
-                    { label: <span className="text-blue-800/50">감소</span>, span: '1', align: 'right' },
+                    { label: <span className="text-blue-700">감소</span>, span: '1', align: 'right' },
                   ]}
                 />
                 <div className="flex flex-col">
