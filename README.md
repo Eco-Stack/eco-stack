@@ -1,85 +1,34 @@
-# Free Tailwind dashboard template
+### 서비스명
+- Eco - Stack
 
-![Mosaic TailwindCSS template preview](https://github.com/cruip/tailwind-dashboard-template/assets/2683512/d252e308-8869-4b70-bce8-bb44071f8b2e)
+### 개발기간
+- 2023.10 - 2023.12 (2달)
 
-**Mosaic Lite** is a responsive dashboard template built on top of TailwindCSS and fully coded in React. It comes with several pre-coded charts (built with Chart.js 3) and widgets, and it's a great starting for anyone who wants to create a user interface for SaaS products, administrator dashboards, modern web apps, and more.
+### 팀원구성
+- 클라이언트1 / 서버3
 
-Use it for whatever you want, and be sure to reach us out on [Twitter](https://twitter.com/Cruip_com) if you build anything cool/useful with it.
+### 기술스택
+- Chart.js / React-Query / Vite / React.js / TypeScript
 
-Created and maintained with ❤️ by [Cruip.com](https://cruip.com/).
+### 주소
+- [Eco - Stack](http://eco-stack.s3-website.ap-northeast-2.amazonaws.com/auth/signin)http://eco-stack.s3-website.ap-northeast-2.amazonaws.com
 
-## Live demo
+### 주제
+- OpenStack을 활용해 구축한 **클라우드내 리소스를 모니터링** 하는 웹어플리케이션 입니다.
+- 리소스는 컴퓨팅 자원을 의미하며, **CPU / Memory / Disk / Network** 총 4가지 메트릭을 수집합니다.
+- 사용자가 **어떤 데이터를 우선적으로 파악하고 싶어하는지**, 사용자에게 **차트를 통해 어떤 인사이트를 제공할 수 있는지**에 대해 고민해볼 수 있었던 프로젝트입니다.
 
-Check the live demo here 👉️ [https://mosaic.cruip.com/](https://mosaic.cruip.com/)
+### 데모
+![화면 기록 2023-12-18 14 06 08](https://github.com/Eco-Stack/eco-stack/assets/17701725/5a366a2c-5d5f-4c5d-bd48-030ee035be9c)
 
-## Mosaic Pro
+### 서비스 구성도
+![image](https://github.com/Eco-Stack/eco-stack/assets/17701725/5f177bbb-ce2c-4d4e-bbae-120039172755)
 
-[![Mosaic Pro](https://user-images.githubusercontent.com/2683512/151177026-3d063355-976d-4fdb-a5ed-9c1501c58af2.png)](https://cruip.com/mosaic/)
+### 서비스 아키텍쳐
+![image](https://github.com/Eco-Stack/eco-stack/assets/17701725/3e6dd1df-2858-4bda-a196-972673e77f42)
 
-## Design files
+### 템플릿
+- Free Tailwind dashboard template
 
-If you need the design files, you can download them from Figma's Community 👉 https://bit.ly/3sigqHe
-
-## Table of contents
-
-- [Usage](#usage)
-  - [Project setup](#project-setup)
-  - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
-  - [Compiles and minifies for production](#compiles-and-minifies-for-production)
-  - [Customize configuration](#customize-configuration)
-- [Support notes](#support-notes)
-- [Credits](#credits)
-- [Terms and License](#terms-and-license)
-- [About Us](#about-us)
-- [Stay in the loop](#stay-in-the-loop)
-
-## Usage
-
-This project was bootstrapped with [Vite](https://vitejs.dev/).
-
-### Project setup
-
-```
-npm install
-```
-
-#### Compiles and hot-reloads for development
-
-```
-npm run dev
-```
-
-#### Compiles and minifies for production
-
-```
-npm run build
-```
-
-#### Customize configuration
-
-See [Configuration Reference](https://vitejs.dev/guide/).
-
-### Support notes
-
-We are shipping our templates with a very basic React configuration to let you quickly get into the development process, but we don't discourage you from using any other configuration or framework built on the top of React. So, please note that any request dealing with React (e.g. extra features, customisations, et cetera) is to be considered out of the support scope.
-
-For more information about what support covers, please see our (FAQs)[https://cruip.com/faq/].
-
-## Credits
-
-- [Nucleo](https://nucleoapp.com/)
-
-## Terms and License
-
-- Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html).
-- Copyright 2020 [Cruip](https://cruip.com/).
-- Use it for personal and commercial projects, but please don’t republish, redistribute, or resell the template.
-- Attribution is not required, although it is really appreciated.
-
-## About Us
-
-We're an Italian developer/designer duo creating high-quality design/code resources for developers, makers, and startups.
-
-## Stay in the loop
-
-If you would like to know when we release new resources, you can follow us on [Twitter](https://twitter.com/Cruip_com), or you can subscribe to our monthly [newsletter](https://cruip.com/#subscribe).
+### 프로젝트 유형
+- 산학협력프로젝트
