@@ -71,17 +71,7 @@ function DropdownProfile({ align }) {
             <li>
               <Link
                 className="flex items-center px-3 py-1 text-sm font-medium text-green-500 hover:text-green-600 dark:hover:text-green-400"
-                to="/settings"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                Settings
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="flex items-center px-3 py-1 text-sm font-medium text-green-500 hover:text-green-600 dark:hover:text-green-400"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                to="/auth/signin"
               >
                 Sign Out
               </Link>
